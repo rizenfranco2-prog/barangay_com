@@ -1417,3 +1417,99 @@ body {
         font-size: 24px !important;
     }
 }
+
+
+/* =========================================================
+   PHONE-ONLY STICKY HEADER + STAY-AVAILABLE NAVIGATION
+   Desktop and laptop screens are not changed.
+   ========================================================= */
+@media screen and (max-width: 768px) {
+    /* Keep the colored header background and controls visible while scrolling. */
+    body.app-body > .topbar,
+    body.app-body header.topbar,
+    body > header.topbar,
+    .app-body .topbar {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        isolation: isolate !important;
+        background: #0879ed !important;
+        background-color: #0879ed !important;
+        box-shadow: 0 5px 18px rgba(8, 35, 75, .18) !important;
+    }
+
+    /* The Posts / Change Password / Announcements / Officials menu is a
+     fixed drawer: when opened it stays in place even if the page scrolls. */
+    .app-body .sidebar,
+    body.app-body #mobileSidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: min(88vw, 360px) !important;
+        max-width: 88vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 1200 !important;
+        padding: max(18px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom)) !important;
+        background: #fff !important;
+        box-shadow: 12px 0 36px rgba(8, 35, 75, .22) !important;
+        transform: translateX(-110%) !important;
+        visibility: hidden !important;
+        transition: transform .25s ease, visibility .25s ease !important;
+    }
+
+    .app-body.mobile-menu-open .sidebar,
+    body.mobile-menu-open #mobileSidebar {
+        transform: translateX(0) !important;
+        visibility: visible !important;
+    }
+
+    /* Dim the page behind the open menu, but keep the drawer above it. */
+    body.app-body.mobile-menu-open::after,
+    body.mobile-menu-open::after {
+        content: "" !important;
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(8, 20, 40, .48) !important;
+        z-index: 1100 !important;
+    }
+
+    .app-body.mobile-menu-open {
+        overflow: hidden !important;
+    }
+
+    .app-body .sidebar nav,
+    .app-body .sidebar .nav-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        overflow: visible !important;
+    }
+
+    .app-body .sidebar .nav-item,
+    .app-body .sidebar .nav-link,
+    .app-body .sidebar .sidebar-item {
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-height: 56px !important;
+        flex: 0 0 auto !important;
+        padding: 14px 16px !important;
+        font-size: 18px !important;
+        border-radius: 14px !important;
+        white-space: normal !important;
+    }
+
+    /* Header controls remain clickable above its background. */
+    .app-body .topbar > *, .app-body .topbar button,
+    .app-body .topbar a, .app-body .topbar input {
+        position: relative;
+        z-index: 1;
+    }
+}
