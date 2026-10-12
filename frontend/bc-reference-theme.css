@@ -1,0 +1,54 @@
+
+/* Barangay Connect — shared reference-inspired design system */
+:root{
+ --bc-navy:#06265b;--bc-navy-2:#073b7d;--bc-blue:#1478ec;--bc-blue-2:#279cf3;
+ --bc-cyan:#25d3e7;--bc-ink:#102b56;--bc-muted:#64748b;--bc-line:#dce6f3;
+ --bc-bg:#f2f7fd;--bc-card:#fff;--bc-shadow:0 14px 40px rgba(5,35,82,.10);
+ --bc-radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",Inter,system-ui,-apple-system,"Segoe UI",sans-serif!important;color:var(--bc-ink)}
+body.app-body{background:linear-gradient(180deg,#eef6ff 0,#f6f9fe 260px,#f4f7fc 100%)!important}
+a{transition:color .2s ease,background .2s ease,transform .2s ease}
+button,.primary-btn,.icon-btn,.logout-btn{font-family:inherit;transition:all .2s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #65c9ff!important;outline-offset:2px}
+.topbar{background:linear-gradient(105deg,#031d4b,#062d6a 62%,#06417f)!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,.15)!important;box-shadow:0 5px 22px rgba(2,25,62,.18)!important}
+.top-brand{color:#fff!important;font-weight:800!important;letter-spacing:-.03em}
+.top-brand>span,.top-brand-logo,.brand-mark{background:linear-gradient(135deg,#eefaff,#67d7ff)!important;color:#073c7c!important;font-weight:900!important;box-shadow:0 5px 15px rgba(35,180,255,.22)}
+.top-search{border:1px solid rgba(255,255,255,.2)!important;background:rgba(255,255,255,.12)!important;border-radius:12px!important;color:#fff!important}
+.top-search input{color:#fff!important}
+.top-search input::placeholder{color:#d9e8ff!important}
+.top-user,.top-user strong,.top-profile-info strong{color:#fff!important}
+.avatar{background:linear-gradient(135deg,#1688f8,#20c7e1)!important;color:#fff!important;border:2px solid rgba(255,255,255,.65)!important}
+.sidebar{background:#fff!important;border:1px solid #e1eaf6!important;border-radius:18px!important;box-shadow:0 10px 30px rgba(8,41,86,.07)!important}
+.nav-item{border-radius:10px!important;color:#415778!important;font-weight:650!important}
+.nav-item:hover,.nav-item.active,.nav-item[aria-current=page]{background:#eaf4ff!important;color:#0869d8!important}
+main,.content,.main-content,.page-content,.dashboard-content,.admin-content{min-width:0}
+.card,.panel,.post-card,.stat-card,.chart-card,.form-card,.auth-card,.content-card,.official-card,.announcement-card,.report-card,.modal-content{border:1px solid #e2eaf5!important;border-radius:var(--bc-radius)!important;box-shadow:var(--bc-shadow)!important}
+h1,h2,h3,h4{color:var(--bc-navy);letter-spacing:-.025em}
+p,.muted,small{line-height:1.55}
+input,select,textarea{border:1px solid #d8e3f1!important;border-radius:11px!important;background:#fbfdff!important;color:#15345e!important;box-shadow:none!important}
+input:focus,select:focus,textarea:focus{border-color:#2588f2!important;box-shadow:0 0 0 4px rgba(37,136,242,.12)!important}
+button.primary-btn,.primary-btn,.btn-primary,.submit-btn{background:linear-gradient(105deg,#1676ec,#168ee9)!important;color:#fff!important;border:0!important;border-radius:11px!important;box-shadow:0 8px 18px rgba(21,117,232,.22)!important;font-weight:750!important}
+button.primary-btn:hover,.primary-btn:hover,.btn-primary:hover,.submit-btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.icon-btn,.logout-btn{border:1px solid rgba(255,255,255,.2)!important;border-radius:10px!important}
+table{border-collapse:separate!important;border-spacing:0!important;overflow:hidden;border-radius:14px}
+thead th{background:#eaf3ff!important;color:#123a70!important;font-weight:800!important}
+tbody tr{background:#fff}
+tbody tr:hover{background:#f5faff}
+.badge,.status-badge{border-radius:999px!important;font-weight:750!important}
+.auth-page{background:radial-gradient(ellipse at 8% 0,#0b5bb1 0,#06275f 46%,#031b43 100%)!important}
+.auth-shell{gap:0!important;overflow:hidden;border-radius:24px!important;box-shadow:0 30px 90px rgba(0,15,47,.32)!important}
+.brand-panel{background:linear-gradient(145deg,#06316e,#087cc5 75%,#17b9d1)!important;color:#fff!important}
+.brand-panel h1,.brand-panel .eyebrow,.brand-panel .brand-copy,.brand-panel .brand-points{color:#fff!important}
+.auth-card{border-radius:0!important;box-shadow:none!important}
+.tabs{background:#eef5ff!important;border-radius:12px!important;padding:4px!important}
+.tab.active{background:#fff!important;color:#086bd7!important;box-shadow:0 3px 12px rgba(4,47,105,.1)!important;border-radius:9px!important}
+@media(max-width:760px){
+ .topbar{gap:10px!important;padding:12px!important;flex-wrap:wrap}
+ .top-search{order:3;flex-basis:100%;max-width:none}
+ .layout{gap:14px!important}
+ .sidebar{border-radius:14px!important}
+ .auth-shell{margin:16px!important;border-radius:18px!important}
+}

@@ -1,62 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barangay Connect</title>
-  <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bc-redesign.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06265b">
+<meta name="description" content="Barangay Connect helps residents report community concerns and stay informed.">
+<title>Barangay Connect | Report. Connect. Be heard.</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="bc-redesign.css">
+<link rel="stylesheet" href="bc-reference-theme.css">
+<style>
+.landing-page{margin:0;background:#062b68;color:#fff;overflow-x:hidden}
+.landing-top{height:88px;background:#031e4d;display:flex;align-items:center;justify-content:space-between;padding:0 max(4vw,24px);gap:24px;border-bottom:1px solid rgba(255,255,255,.18)}
+.landing-brand{display:flex;align-items:center;gap:14px;color:#fff;text-decoration:none;min-width:max-content}
+.landing-logo{font-size:46px;line-height:1;font-weight:900;letter-spacing:-5px;color:#fff}
+.landing-logo span{color:#4fc8ff}
+.landing-brand-name{font-weight:800;font-size:21px;line-height:1.05}
+.landing-brand-name small{display:block;color:#4dcaff;font-size:16px}
+.landing-tagline{border-left:1px solid #8ca6c9;padding-left:28px;font-style:italic;color:#e3edff;margin-left:10px}
+.landing-actions{display:flex;align-items:center;gap:22px}
+.landing-actions a{color:#fff;text-decoration:none;font-weight:800;font-size:13px;letter-spacing:.04em}
+.landing-actions .resident-cta{background:#1479e8;padding:15px 22px;border-radius:7px;box-shadow:0 6px 18px #001a4266}
+.landing-nav{background:#fff;color:#082858;min-height:55px;display:flex;align-items:center;justify-content:space-between;padding:0 max(4vw,24px);gap:18px}
+.landing-nav a{color:#092957;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.045em;white-space:nowrap}
+.landing-nav a:hover{color:#1379e9}
+.landing-hero{position:relative;isolation:isolate;min-height:700px;padding:48px max(4vw,24px) 100px;background:radial-gradient(ellipse at 79% 18%,#168fda 0,#0873bf 30%,transparent 53%),linear-gradient(115deg,#06275f 0%,#064e99 52%,#0873bd 100%);overflow:hidden}
+.landing-hero:before{content:"";position:absolute;z-index:-1;width:55vw;height:55vw;min-width:580px;min-height:580px;border-radius:50%;right:-9%;top:-15%;background:linear-gradient(145deg,rgba(47,191,246,.5),rgba(5,57,128,.22));border:1px solid #60d6ff2e}
+.landing-hero:after{content:"";position:absolute;z-index:-1;left:-4%;right:-4%;bottom:-1px;height:54px;background:linear-gradient(100deg,#10c9d1,#149bea 70%,#2073ef);border-radius:50% 50% 0 0 / 28% 28% 0 0}
+.landing-hero-inner{max-width:1370px;margin:auto;position:relative}
+.hero-copy{position:relative;z-index:2;width:57%;max-width:760px}
+.hero-kicker{display:flex;align-items:center;gap:14px;text-transform:uppercase;font-weight:800;letter-spacing:.16em;font-size:15px;color:#e6f6ff;margin:4px 0 12px}
+.hero-kicker:after{content:"";height:2px;width:48px;background:#28d7f0}
+.hero-title{font-family:"Playfair Display",Georgia,serif!important;font-size:clamp(48px,5.2vw,82px)!important;line-height:1.02!important;letter-spacing:-.045em!important;color:#fff!important;margin:0 0 22px;max-width:760px}
+.hero-title span{display:block;color:#58e1f0}
+.hero-description{font-size:18px;line-height:1.5;color:#f0f7ff;max-width:680px;margin:0 0 28px}
+.hero-highlights{display:flex;gap:26px;flex-wrap:wrap}
+.hero-highlight{display:flex;align-items:center;gap:12px;padding-right:24px;border-right:1px solid #b7d8f6a6}
+.hero-highlight:last-child{border:0}
+.hero-highlight-icon{font-size:28px}
+.hero-highlight strong{display:block;font-size:18px;color:#fff}
+.hero-highlight small{display:block;color:#d9eaff;font-size:13px}
+.hero-art{position:absolute;right:-4%;top:2px;width:52%;height:405px;background:url("barangay-hero-illustration.jpg") center/cover no-repeat;mix-blend-mode:screen;opacity:.94;mask-image:linear-gradient(90deg,transparent 0%,#000 18%);border-radius:48% 0 0 0}
+.quick-report{position:relative;z-index:4;margin:30px auto 0;display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:14px;align-items:center;padding:22px 26px;background:#fff;color:#0a2c5e;border:1px solid #d7e7fa;border-radius:13px;box-shadow:0 18px 44px #001a4c3b}
+.quick-report h2{font-size:23px;line-height:1.2;margin:0 0 6px;color:#082d63}
+.quick-report p{font-size:14px;color:#647997;margin:0}
+.quick-report select,.quick-report input{width:100%;min-height:54px;padding:0 14px;border:1px solid #dce6f2;border-radius:9px;background:#fff;font:inherit;color:#24446d}
+.quick-report button{min-height:54px;border:0;border-radius:9px;background:linear-gradient(110deg,#176ff0,#0879e8);color:white;font-weight:800;padding:0 22px;white-space:nowrap;cursor:pointer}
+.landing-features{max-width:1050px;margin:42px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:34px;position:relative;z-index:2}
+.landing-feature{display:flex;gap:15px;align-items:flex-start}
+.landing-feature-icon{width:64px;height:64px;flex:0 0 64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#15c8d7,#0b9fe5);font-size:27px;box-shadow:0 9px 24px #001a4b40}
+.landing-feature:nth-child(2) .landing-feature-icon{background:linear-gradient(135deg,#0c9ef7,#2472f2)}
+.landing-feature:nth-child(3) .landing-feature-icon{background:linear-gradient(135deg,#655cf4,#3766df)}
+.landing-feature h3{color:#fff;font-size:17px;margin:4px 0 5px}
+.landing-feature p{color:#d7eaff;font-size:14px;margin:0;line-height:1.5}
+.landing-footer{background:#07306b;color:#d8e9ff;text-align:center;padding:22px;font-size:13px}
+@media(max-width:1050px){.landing-tagline{display:none}.landing-hero{padding-top:40px}.hero-copy{width:66%}.hero-art{right:-15%;width:56%;opacity:.62}.quick-report{grid-template-columns:1fr 1fr}.quick-report-intro{grid-column:1/-1}.quick-report button{width:100%}}
+@media(max-width:700px){.landing-top{height:auto;min-height:76px;padding:14px 18px;flex-wrap:wrap}.landing-logo{font-size:38px}.landing-brand-name{font-size:18px}.landing-actions{gap:12px}.landing-actions .resident-cta{padding:11px 13px}.landing-actions a{font-size:11px}.landing-nav{justify-content:flex-start;overflow-x:auto;padding:15px 18px}.landing-nav a{font-size:11px}.landing-hero{padding:38px 18px 70px;min-height:auto}.hero-copy{width:100%}.hero-art{position:relative;top:auto;right:auto;width:calc(100% + 36px);height:230px;margin:15px -18px -12px;opacity:.82;mask-image:linear-gradient(180deg,#000 65%,transparent)}.hero-title{font-size:clamp(44px,12vw,64px)!important}.hero-description{font-size:16px}.hero-highlights{gap:14px}.hero-highlight{padding-right:12px;gap:7px}.hero-highlight-icon{font-size:22px}.hero-highlight strong{font-size:15px}.hero-highlight small{font-size:11px}.quick-report{grid-template-columns:1fr;padding:18px;margin-top:20px}.quick-report-intro{grid-column:auto}.quick-report h2{font-size:21px}.landing-features{grid-template-columns:1fr;gap:22px;margin:32px 0}.landing-feature-icon{width:54px;height:54px;flex-basis:54px}.landing-actions .join-link{display:none}}
+</style>
 </head>
-<body class="auth-page">
-  <main class="auth-shell">
-    <section class="brand-panel">
-      <div class="brand-mark">BC</div>
-      <p class="eyebrow">BARANGAY CONNECT</p>
-      <h1>Report. Connect.<br>Be heard.</h1>
-      <p class="brand-copy">A modern community space for sharing barangay concerns, announcements and helpful updates.</p>
-      <div class="brand-points">
-        <span>✓ Community complaints</span>
-        <span>✓ Public announcements</span>
-        <span>✓ Community comments</span>
-      </div>
-    </section>
-
-    <section class="auth-card">
-        <div class="tabs">
-            <button class="tab active" id="loginTab">Sign in</button>
-            <button class="tab" id="registerTab">Create account</button>
-        </div>
-
-        <form id="loginForm">
-            <h2>Welcome back</h2>
-            <p class="muted">Sign in to your community account.</p>
-            <label>Email</label>
-            <input id="loginEmail" type="email" required placeholder="you@example.com">
-            <label>Password</label>
-            <input id="loginPassword" type="password" required placeholder="Your password">
-            <button class="primary-btn" type="submit">Sign in</button>
-            <p class="form-message" id="loginMessage"></p>
-        </form>
-
-        <form id="registerForm" class="hidden">
-            <h2>Join your community</h2>
-            <p class="muted">Create an account to post complaints and comments.</p>
-            <label>Full name</label>
-            <input id="registerName" required maxlength="80" placeholder="Juan Dela Cruz">
-            <label>Email</label>
-            <input id="registerEmail" type="email" required placeholder="you@example.com">
-            <label>Password</label>
-            <input id="registerPassword" type="password" required minlength="6" placeholder="At least 6 characters">
-            <button class="primary-btn" type="submit">Create account</button>
-            <p class="form-message" id="registerMessage"></p>
-        </form>
-        <a class="admin-link" href="admin.html">Administrator login →</a>
-    </section>
-  </main>
-  <script src="config.js"></script>
-  <script src="auth.js"></script>
+<body class="landing-page">
+<header class="landing-top">
+  <a class="landing-brand" href="index.html" aria-label="Barangay Connect home">
+    <span class="landing-logo">B<span>C</span></span>
+    <span class="landing-brand-name">Barangay<small>Connect</small></span>
+    <span class="landing-tagline">Report. Connect. Be heard.</span>
+  </a>
+  <div class="landing-actions">
+    <a class="resident-cta" href="resident-login.html">FOR RESIDENTS</a>
+    <a class="join-link" href="resident-login.html#register">JOIN</a>
+    <a href="resident-login.html">LOG IN</a>
+    <a href="admin.html" aria-label="Administrator sign in">ADMIN</a>
+  </div>
+</header>
+<nav class="landing-nav" aria-label="Main navigation">
+  <a href="dashboard.html">COMMUNITY FEED⌄</a><a href="announcements.html">ANNOUNCEMENTS⌄</a><a href="complaint-status.html">REPORTS⌄</a><a href="reports.html">GRAPHS &amp; STATS⌄</a><a href="about.html">ABOUT⌄</a><a href="officials.html">📍 OUR BARANGAY</a>
+</nav>
+<main class="landing-hero">
+ <div class="landing-hero-inner">
+  <div class="hero-art" role="img" aria-label="Illustration of a barangay hall and community members"></div>
+  <section class="hero-copy">
+   <div class="hero-kicker">Barangay Connect</div>
+   <h1 class="hero-title">Report. Connect.<span>Be heard.</span></h1>
+   <p class="hero-description">A safer, cleaner, and stronger community starts with you.<br>Report issues, share concerns, and stay connected with your barangay.</p>
+   <div class="hero-highlights">
+    <div class="hero-highlight"><span class="hero-highlight-icon">▤</span><span><strong>Report issues</strong><small>Submit community concerns</small></span></div>
+    <div class="hero-highlight"><span class="hero-highlight-icon">♧</span><span><strong>Stay connected</strong><small>Updates from your community</small></span></div>
+    <div class="hero-highlight"><span class="hero-highlight-icon">⌖</span><span><strong>Track progress</strong><small>Follow complaint status</small></span></div>
+   </div>
+  </section>
+  <form class="quick-report" id="quickReportForm">
+   <div class="quick-report-intro"><h2>Report a concern in your barangay.</h2><p>Your voice matters. Help us build a better community.</p></div>
+   <label><span class="sr-only">Category</span><select id="quickCategory" required><option value="">☷ &nbsp; Select Category</option><option value="Infrastructure">Infrastructure</option><option value="Garbage/Waste">Garbage / Waste</option><option value="Peace and Order">Peace and Order</option><option value="Street Lighting">Street Lighting</option><option value="Drainage/Flooding">Drainage / Flooding</option><option value="Other">Other</option></select></label>
+   <label><span class="sr-only">Location</span><input id="quickLocation" required maxlength="180" placeholder="📍  Enter Location"></label>
+   <button type="submit">➤ &nbsp; SUBMIT REPORT</button>
+  </form>
+  <section class="landing-features" aria-label="Barangay Connect features">
+   <article class="landing-feature"><span class="landing-feature-icon">▢</span><div><h3>Report Issues</h3><p>Report problems in your community easily.</p></div></article>
+   <article class="landing-feature"><span class="landing-feature-icon">♟</span><div><h3>Stay Connected</h3><p>Read updates and community posts.</p></div></article>
+   <article class="landing-feature"><span class="landing-feature-icon">⬟</span><div><h3>Build a Safer Barangay</h3><p>Together for a cleaner, stronger, and safer community.</p></div></article>
+  </section>
+ </div>
+</main>
+<footer class="landing-footer">© <span id="year"></span> Barangay Connect · Report. Connect. Be heard.</footer>
+<script src="config.js"></script>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('quickReportForm').addEventListener('submit',function(event){
+ event.preventDefault();
+ const category=document.getElementById('quickCategory').value;
+ const location=document.getElementById('quickLocation').value.trim();
+ if(!category||!location)return;
+ sessionStorage.setItem('barangay_quick_report',JSON.stringify({category,location}));
+ if(localStorage.getItem('barangay_token')){
+   window.location.href='dashboard.html?quickReport=1';
+ }else{
+   window.location.href='resident-login.html?next=report';
+ }
+});
+</script>
 </body>
 </html>

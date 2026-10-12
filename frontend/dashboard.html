@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="bc-reference-theme.css">
 </head>
 
 <body class="app-body">
@@ -619,6 +620,34 @@
                 if (event.key === "Escape") closeMenu();
             });
         });
+    </script>
+
+
+    <script>
+    // Prefill the complaint form when a resident arrives from the homepage quick-report bar.
+    document.addEventListener("DOMContentLoaded", function () {
+        try {
+            const draft = JSON.parse(sessionStorage.getItem("barangay_quick_report") || "null");
+            if (!draft) return;
+            const category = document.getElementById("complaintCategory");
+            const address = document.getElementById("complaintAddress");
+            if (category && draft.category) {
+                const match = Array.from(category.options).find(option =>
+                    option.value === draft.category || option.textContent.trim() === draft.category
+                );
+                if (match) category.value = match.value;
+            }
+            if (address && draft.location) address.value = draft.location;
+            sessionStorage.removeItem("barangay_quick_report");
+            if (category || address) {
+                const firstField = category || address;
+                firstField.scrollIntoView({ behavior: "smooth", block: "center" });
+                firstField.focus({ preventScroll: true });
+            }
+        } catch (error) {
+            console.warn("Could not restore quick report draft.", error);
+        }
+    });
     </script>
 
 </body>
