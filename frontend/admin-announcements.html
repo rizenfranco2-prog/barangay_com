@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements • Barangay Connect</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bc-redesign.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="app-body">
+
+    <!-- ================= TOPBAR ================= -->
+    <header class="topbar">
+
+        <button type="button"
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileSidebar">
+            ☰
+        </button>
+
+        <a href="admin-dashboard.html" class="top-brand">
+            <span>BC</span>
+            Admin Console
+        </a>
+
+        <div class="top-search">
+            <input type="text"
+                   id="adminSearch"
+                   placeholder="Search...">
+        </div>
+
+        <div class="top-user">
+
+            <span class="avatar tiny" id="topAvatar">A</span>
+
+            <div class="top-user-info">
+                <strong id="topName">Admin</strong>
+                <small>Administrator</small>
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= LAYOUT ================= -->
+    <div class="app-layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="mobileSidebar">
+
+            <nav>
+
+                <a class="nav-item"
+                   href="admin-dashboard.html">
+                    ▦
+                    <span>Posts</span>
+                </a>
+
+                <a class="nav-item active"
+                   href="admin-announcements.html">
+                    📢
+                    <span>Announcements</span>
+                </a>
+
+                <a class="nav-item"
+                   href="reports.html">
+                    📊
+                    <span>Reports & Charts</span>
+                </a>
+
+                <a class="nav-item"
+                   href="complaint-status.html">
+                    📋
+                    <span>Complaint Status</span>
+                </a>
+
+                <a class="nav-item"
+                   href="officials-admin.html">
+                    🏛️
+                    <span>Officials</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <main class="main-content">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Announcements</h1>
+
+                    <p>
+                        Create and manage official barangay announcements.
+                    </p>
+                </div>
+
+                <button id="addAnnouncementBtn"
+                        class="primary-btn">
+                    + Add Announcement
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="announcement-search">
+
+                <input type="text"
+                       id="announcementSearch"
+                       placeholder="Search announcements...">
+
+            </div>
+
+
+            <!-- ANNOUNCEMENTS -->
+            <section id="announcementList"
+                     class="announcement-list">
+
+                <div id="loading"
+                     class="loading">
+                    Loading announcements...
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= PASSWORD MODAL ================= -->
+    <div id="passwordModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <button type="button"
+                    class="modal-close"
+                    id="closePasswordModal">
+                ×
+            </button>
+
+            <h2>Change Password</h2>
+
+            <form id="passwordForm">
+
+                <label>Current Password</label>
+
+                <input type="password"
+                       id="currentPassword"
+                       required>
+
+                <label>New Password</label>
+
+                <input type="password"
+                       id="newPassword"
+                       required>
+
+                <label>Confirm New Password</label>
+
+                <input type="password"
+                       id="confirmPassword"
+                       required>
+
+                <button type="submit"
+                        class="primary-btn">
+                    Change Password
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= ANNOUNCEMENT MODAL ================= -->
+    <div id="announcementModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <button type="button"
+                    class="modal-close"
+                    id="closeAnnouncementModal">
+                ×
+            </button>
+
+            <h2 id="announcementModalTitle">
+                Add Announcement
+            </h2>
+
+            <form id="announcementForm">
+
+                <input type="hidden"
+                       id="announcementId">
+
+                <label>Announcement</label>
+
+                <textarea id="announcementContent"
+                          rows="6"
+                          placeholder="Write your announcement..."
+                          required></textarea>
+
+                <label>Image URL (optional)</label>
+
+                <input type="text"
+                       id="announcementImage"
+                       placeholder="https://...">
+
+                <button type="submit"
+                        class="primary-btn">
+                    Save Announcement
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= TOAST ================= -->
+    <div id="toast"
+         class="toast">
+    </div>
+
+
+    <script src="config.js"></script>
+    <script src="admin-announcements.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("mobileMenuToggle");
+            const sidebar = document.getElementById("mobileSidebar");
+            const closeButton = document.getElementById("mobileMenuClose");
+
+            if (!toggle || !sidebar) return;
+
+            function closeMenu() {
+                document.body.classList.remove("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.setAttribute("aria-label", "Open navigation menu");
+            }
+
+            function openMenu() {
+                document.body.classList.add("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "true");
+                toggle.setAttribute("aria-label", "Close navigation menu");
+            }
+
+            toggle.addEventListener("click", () => {
+                const isOpen = document.body.classList.contains("mobile-menu-open");
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            // Make the X button close the sidebar
+            if (closeButton) {
+                closeButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            // Close when a navigation link is selected
+            sidebar.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", closeMenu);
+            });
+
+            // Close when Escape is pressed
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") closeMenu();
+            });
+        });
+    </script>
+
+</body>
+</html>

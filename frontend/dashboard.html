@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Feed • Barangay Connect</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bc-redesign.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="app-body">
+
+    <!-- ================= TOP BAR ================= -->
+    <header class="topbar">
+
+        <button type="button"
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileSidebar">
+            ☰
+        </button>
+
+        <a class="top-brand" href="dashboard.html">
+            <span>BC</span> Barangay Connect
+        </a>
+
+        <div class="top-search">
+            <input id="searchInput"
+                   placeholder="Search complaints and posts...">
+            ⌕
+        </div>
+
+        <!-- USER NAME ONLY - NOT CLICKABLE -->
+        <div class="top-user">
+
+            <div class="top-profile">
+
+                <span class="avatar" id="topAvatar">
+                    U
+                </span>
+
+                <div class="top-profile-info">
+
+                    <strong id="topName">
+                        User
+                    </strong>
+
+                    <small>
+                        Resident
+                    </small>
+
+                </div>
+
+            </div>
+
+            <button class="icon-btn" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN LAYOUT ================= -->
+    <div class="layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="mobileSidebar">
+
+            <button type="button"
+                    class="mobile-menu-close"
+                    id="mobileMenuClose"
+                    aria-label="Close navigation menu">
+                &times;
+            </button>
+
+            <div class="profile-mini" id="sidebarProfileBtn">
+
+                <span class="avatar large" id="profileAvatar">
+                    U
+                </span>
+
+                <div class="profile-mini-info">
+
+                    <strong id="profileName">
+                        User
+                    </strong>
+
+                    <small id="profileEmail">
+                        email
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <a class="nav-item active"
+                   href="dashboard.html">
+                    ⌂
+                    <span>Community Feed</span>
+                </a>
+
+
+                <button class="nav-item"
+                        id="passwordBtn">
+                    ⚿
+                    <span>Change Password</span>
+                </button>
+
+
+                <a class="nav-item"
+                   href="announcements.html">
+                    📢
+                    <span>Announcements</span>
+                </a>
+
+
+                <a href="officials.html" class="nav-link">
+                    🏛️ <span>Officials</span>
+                </a>
+
+                <a class="nav-item" href="about.html">
+                    ℹ️
+                    <span>About Us</span>
+                </a>
+
+                <a class="nav-item" href="contact.html">
+                    📞
+                    <span>Contact</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- ================= COMMUNITY FEED ================= -->
+        <main class="feed">
+
+            <section class="welcome">
+
+                <div>
+
+                    <p class="eyebrow">
+                        COMMUNITY FEED
+                    </p>
+
+                    <h1>
+                        What's happening in the barangay?
+                    </h1>
+
+                    <p class="muted">
+                        Share a concern or keep your neighbors informed.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section class="notification-panel">
+                <h2>Notifications</h2>
+                <div id="notificationList">
+                    Loading notifications...
+                </div>
+            </section>
+
+
+            <!-- ================= CREATE COMPLAINT ================= -->
+            <section class="composer card">
+
+                <div class="composer-head">
+
+                    <span class="avatar" id="composerAvatar">
+                        U
+                    </span>
+
+                    <div>
+                        <strong id="composerName">
+                            You
+                        </strong>
+
+                        <small>
+                            Submit a barangay complaint
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <!-- ================= COMPLAINT CATEGORY ================= -->
+
+                <div class="complaint-form-grid">
+
+                    <div class="form-group">
+
+                        <label for="complaintCategory">
+                            Complaint Category
+                        </label>
+
+                        <select id="complaintCategory" required>
+
+                            <option value="">
+                                Select complaint category
+                            </option>
+
+                            <option value="Infrastructure">
+                                Infrastructure
+                            </option>
+
+                            <option value="Garbage/Waste">
+                                Garbage / Waste
+                            </option>
+
+                            <option value="Peace and Order">
+                                Peace and Order
+                            </option>
+
+                            <option value="Street Lighting">
+                                Street Lighting
+                            </option>
+
+                            <option value="Drainage/Flooding">
+                                Drainage / Flooding
+                            </option>
+
+                            <option value="Public Safety">
+                                Public Safety
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="form-group">
+
+                        <label for="complaintAddress">
+                            Address
+                        </label>
+
+                        <input type="text"
+                               id="complaintAddress"
+                               maxlength="300"
+                               placeholder="Complete address"
+                               required>
+
+                    </div>
+
+
+                    <!-- AGE -->
+
+                    <div class="form-group">
+
+                        <label for="complaintAge">
+                            Age
+                        </label>
+
+                        <input type="number"
+                               id="complaintAge"
+                               min="1"
+                               max="120"
+                               placeholder="Age"
+                               required>
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label for="complaintGender">
+                            Gender
+                        </label>
+
+                        <select id="complaintGender" required>
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CONTACT NUMBER -->
+
+                    <div class="form-group">
+
+                        <label for="complaintContact">
+                            Contact Number
+                        </label>
+
+                        <input type="tel"
+                               id="complaintContact"
+                               maxlength="30"
+                               placeholder="09XXXXXXXXX"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= COMPLAINT DESCRIPTION ================= -->
+
+                <div class="form-group complaint-description">
+
+                    <label for="postContent">
+                        Complaint Description
+                    </label>
+
+                    <textarea id="postContent"
+                              maxlength="5000"
+                              placeholder="Describe your complaint..."
+                              required></textarea>
+
+                </div>
+
+
+                <!-- ================= COMPLAINT PICTURE ================= -->
+
+                <div class="image-upload">
+
+                    <label for="postImage"
+                           class="image-upload-btn">
+
+                        📷 Add complaint picture
+
+                    </label>
+
+                    <input type="file"
+                           id="postImage"
+                           accept="image/jpeg,image/png,image/webp"
+                           hidden>
+
+
+                    <div id="imagePreviewContainer"
+                         class="image-preview-container hidden">
+
+                        <img id="imagePreview"
+                             class="image-preview"
+                             alt="Complaint picture preview">
+
+                        <button type="button"
+                                id="removeImageBtn"
+                                class="remove-image-btn">
+
+                            Remove picture
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= STATUS ================= -->
+
+                <div class="complaint-status-info">
+
+                    <span class="status-label">
+                        Complaint Status
+                    </span>
+
+                    <span class="status-badge pending">
+                        Pending
+                    </span>
+
+                    <small>
+                        New complaints are automatically marked as Pending.
+                    </small>
+
+                </div>
+
+
+                <!-- ================= ACTIONS ================= -->
+
+                <div class="composer-actions">
+
+                    <span id="charCount">
+                        0 / 5000
+                    </span>
+
+                    <button class="primary-btn small"
+                            id="postBtn"
+                            type="button">
+
+                        Submit Complaint
+
+                    </button>
+
+                </div>
+
+
+                <p class="form-message"
+                   id="postMessage">
+                </p>
+
+            </section>
+
+
+            <!-- ================= POSTS ================= -->
+            <div id="feedList"></div>
+
+            <div class="loading"
+                 id="loading">
+                Loading community posts...
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- CHANGE PASSWORD MODAL -->
+    <!-- ================================================= -->
+
+    <div class="modal hidden"
+         id="passwordModal">
+
+        <div class="modal-card">
+
+            <button class="close"
+                    data-close="passwordModal">
+                ×
+            </button>
+
+            <h2>
+                Change password
+            </h2>
+
+
+            <form id="passwordForm">
+
+                <label>
+                    Current password
+                </label>
+
+                <input id="currentPassword"
+                       type="password"
+                       required>
+
+
+                <label>
+                    New password
+                </label>
+
+                <input id="newPassword"
+                       type="password"
+                       minlength="6"
+                       required>
+
+
+                <label>
+                    Confirm new password
+                </label>
+
+                <input id="confirmPassword"
+                       type="password"
+                       minlength="6"
+                       required>
+
+
+                <button class="primary-btn"
+                        type="submit">
+                    Update password
+                </button>
+
+
+                <p class="form-message"
+                   id="passwordMessage"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- USER PROFILE MODAL -->
+    <!-- ================================================= -->
+
+    <div class="modal hidden"
+         id="profileModal">
+
+        <div class="modal-card profile-modal">
+
+            <button class="close"
+                    data-close="profileModal">
+                ×
+            </button>
+
+
+            <div class="profile-header">
+
+                <span class="avatar profile-avatar"
+                      id="viewProfileAvatar">
+                    U
+                </span>
+
+                <div>
+
+                    <h2 id="viewProfileName">
+                        User
+                    </h2>
+
+                    <p class="muted"
+                       id="viewProfileEmail">
+                        email
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <h3>
+                Posts by this user
+            </h3>
+
+
+            <div id="userPosts">
+
+                <p class="muted">
+                    Loading posts...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+    <div class="toast"
+         id="toast"></div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script src="config.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("mobileMenuToggle");
+            const sidebar = document.getElementById("mobileSidebar");
+            const closeButton = document.getElementById("mobileMenuClose");
+
+            if (!toggle || !sidebar) return;
+
+            function closeMenu() {
+                document.body.classList.remove("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.setAttribute("aria-label", "Open navigation menu");
+            }
+
+            function openMenu() {
+                document.body.classList.add("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "true");
+                toggle.setAttribute("aria-label", "Close navigation menu");
+            }
+
+            toggle.addEventListener("click", () => {
+                const isOpen = document.body.classList.contains("mobile-menu-open");
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            // Make the X button close the sidebar
+            if (closeButton) {
+                closeButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            // Close when a navigation link is selected
+            sidebar.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", closeMenu);
+            });
+
+            // Close when Escape is pressed
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") closeMenu();
+            });
+        });
+    </script>
+
+</body>
+</html>

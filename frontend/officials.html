@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Officials • Barangay Connect</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bc-redesign.css">
+    <link rel="stylesheet" href="officials.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="app-body">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <button type="button"
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileSidebar">
+            ☰
+        </button>
+
+        <a href="dashboard.html" class="top-brand">
+            <span>BC</span>
+            Barangay Connect
+        </a>
+
+        <div class="top-search">
+            <input type="text"
+                   id="adminSearch"
+                   placeholder="Search...">
+        </div>
+
+        <div class="top-user">
+            <button id="topProfileBtn" class="top-profile-btn">
+                <span class="avatar" id="topAvatar">U</span>
+
+                <span class="top-user-info">
+                    <strong id="topName">User</strong>
+                    <small>Resident</small>
+                </span>
+            </button>
+
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+        </div>
+
+    </header>
+
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="mobileSidebar">
+
+            <div class="profile-mini" id="profileBtn">
+                <span class="avatar" id="profileAvatar">U</span>
+
+                <div>
+                    <strong id="profileName">User</strong>
+                    <small>Resident</small>
+                </div>
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="dashboard.html" class="nav-link">
+                    🏠
+                    <span>Community Feed</span>
+                </a>
+
+
+                <a href="announcements.html" class="nav-link">
+                    📢
+                    <span>Announcements</span>
+                </a>
+
+                <!-- USER OFFICIALS PAGE -->
+                <a href="officials.html" class="nav-link active">
+                    🏛️
+                    <span>Officials</span>
+                </a>
+
+                <a class="nav-item" href="about.html">
+                    ℹ️
+                    <span>About Us</span>
+                </a>
+
+                <a class="nav-item" href="contact.html">
+                    📞
+                    <span>Contact</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <section class="official-page-header">
+
+                <div>
+                    <p class="official-eyebrow">
+                        GOVERNMENT DIRECTORY
+                    </p>
+
+                    <h1>Government Officials</h1>
+
+                    <p>
+                        View the current city government and barangay officials.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- SEARCH -->
+            <div class="official-search">
+
+                <span class="official-search-icon">🔍</span>
+
+                <input type="text"
+                       id="officialSearch"
+                       placeholder="Search officials...">
+
+            </div>
+
+
+            <!-- CITY GOVERNMENT -->
+            <section class="official-section">
+
+                <div class="official-section-heading">
+
+                    <div class="official-section-icon">
+                        🏢
+                    </div>
+
+                    <div>
+                        <h2>City Government</h2>
+                        <p>City government officials</p>
+                    </div>
+
+                </div>
+
+                <div id="cityOfficials"
+                     class="official-grid"></div>
+
+            </section>
+
+
+            <!-- BARANGAY GOVERNMENT -->
+            <section class="official-section">
+
+                <div class="official-section-heading">
+
+                    <div class="official-section-icon">
+                        🏘️
+                    </div>
+
+                    <div>
+                        <h2>Barangay Officials</h2>
+                        <p>Barangay government officials</p>
+                    </div>
+
+                </div>
+
+                <div id="barangayOfficials"
+                     class="official-grid"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <button id="closeProfileModal"
+                    class="modal-close">
+                ×
+            </button>
+
+            <h2>My Profile</h2>
+
+            <div class="profile-modal-info">
+
+                <span class="avatar large"
+                      id="modalAvatar">
+                    U
+                </span>
+
+                <div>
+                    <strong id="modalName">User</strong>
+                    <p id="modalEmail">Email</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="toast" class="toast"></div>
+
+
+    <script src="config.js"></script>
+    <script src="officials.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("mobileMenuToggle");
+            const sidebar = document.getElementById("mobileSidebar");
+            const closeButton = document.getElementById("mobileMenuClose");
+
+            if (!toggle || !sidebar) return;
+
+            function closeMenu() {
+                document.body.classList.remove("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.setAttribute("aria-label", "Open navigation menu");
+            }
+
+            function openMenu() {
+                document.body.classList.add("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "true");
+                toggle.setAttribute("aria-label", "Close navigation menu");
+            }
+
+            toggle.addEventListener("click", () => {
+                const isOpen = document.body.classList.contains("mobile-menu-open");
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            // Make the X button close the sidebar
+            if (closeButton) {
+                closeButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            // Close when a navigation link is selected
+            sidebar.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", closeMenu);
+            });
+
+            // Close when Escape is pressed
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") closeMenu();
+            });
+        });
+    </script>
+</body>
+</html>

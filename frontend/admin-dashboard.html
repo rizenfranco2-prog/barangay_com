@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard • Barangay Connect</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bc-redesign.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="app-body">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <button type="button"
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileSidebar">
+            ☰
+        </button>
+
+        <a class="top-brand" href="admin-dashboard.html">
+            <span>BC</span>
+            Admin Console
+        </a>
+
+        <div class="top-search">
+            <input id="adminSearch"
+                   type="text"
+                   placeholder="Search posts or authors...">
+            ⌕
+        </div>
+
+        <div class="top-user">
+
+            <span class="avatar admin-avatar">
+                A
+            </span>
+
+            <span id="adminName">
+                Administrator
+            </span>
+
+            <button class="icon-btn"
+                    id="adminLogout"
+                    type="button">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="mobileSidebar">
+
+            <button type="button"
+                    class="mobile-menu-close"
+                    id="mobileMenuClose"
+                    aria-label="Close navigation menu">
+                &times;
+            </button>
+
+            <div class="profile-mini">
+
+                <span class="avatar large admin-avatar">
+                    A
+                </span>
+
+                <strong id="adminSideName">
+                    Administrator
+                </strong>
+
+                <small>
+                    System administrator
+                </small>
+
+            </div>
+
+
+            <nav>
+
+                <a class="nav-item active"
+                   href="admin-dashboard.html">
+                    ▦
+                    <span>Posts</span>
+                </a>
+
+
+                <button class="nav-item"
+                        id="adminPasswordBtn"
+                        type="button">
+                    ⚿
+                    <span>Change Password</span>
+                </button>
+
+
+                <a class="nav-item"
+                   href="announcements.html">
+                    📢
+                    <span>Announcements</span>
+                </a>
+
+
+                <a class="nav-item"
+                   href="reports.html">
+                    📊
+                    <span>Reports & Charts</span>
+                </a>
+
+
+                <a href="complaint-status.html" class="nav-link">
+                    📋
+                    <span>Complaint Status</span>
+                </a>
+
+                <a href="officials-admin.html" class="nav-link">
+                    🏛️ <span>Officials</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- ADMIN CONTENT -->
+        <main class="admin-main">
+
+            <!-- HEADING -->
+            <section class="dashboard-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        ADMIN CONSOLE
+                    </p>
+
+                    <h1>
+                        Community overview
+                    </h1>
+
+                    <p class="muted" style="color: azure dodgerblue">
+                        Review, publish and moderate barangay posts.
+                    </p>
+
+                </div>
+
+
+                <button class="primary-btn"
+                        id="newPostBtn"
+                        type="button">
+                    ＋ New post
+                </button>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="stats-grid">
+
+                <div class="stat card">
+
+                    <span>
+                        Total posts
+                    </span>
+
+                    <strong id="statPosts">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat card">
+
+                    <span>
+                        Comments
+                    </span>
+
+                    <strong id="statComments">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat card">
+
+                    <span>
+                        Admin posts
+                    </span>
+
+                    <strong id="statAdminPosts">
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- POSTS -->
+            <section class="admin-table-card card">
+
+                <div class="table-head">
+
+                    <div>
+
+                        <h2>
+                            Community posts
+                        </h2>
+
+                        <p class="muted">
+                            Manage all published posts and complaints.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JAVASCRIPT PUTS POSTS HERE -->
+                <div class="admin-post-list"
+                     id="adminPostList"></div>
+
+
+                <!-- LOADING -->
+                <div class="loading"
+                     id="adminLoading">
+                    Loading posts...
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- NEW / EDIT POST MODAL -->
+    <div class="modal hidden"
+         id="postModal">
+
+        <div class="modal-card">
+
+            <button class="close"
+                    data-close="postModal"
+                    type="button">
+                ×
+            </button>
+
+
+            <h2 id="postModalTitle">
+                Create post
+            </h2>
+
+
+            <form id="adminPostForm">
+
+                <textarea id="adminPostContent"
+                          maxlength="5000"
+                          required
+                          placeholder="Write an announcement or community update..."></textarea>
+
+
+                <input type="hidden"
+                       id="editPostId">
+
+
+                <button class="primary-btn"
+                        type="submit"
+                        id="adminPostSubmit">
+                    Publish
+                </button>
+
+
+                <p class="form-message"
+                   id="adminPostMessage"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div class="modal hidden"
+         id="passwordModal">
+
+        <div class="modal-card">
+
+            <button class="close"
+                    data-close="passwordModal"
+                    type="button">
+                ×
+            </button>
+
+
+            <h2>
+                Change password
+            </h2>
+
+
+            <form id="adminPasswordForm">
+
+                <label for="adminCurrentPassword">
+                    Current password
+                </label>
+
+                <input id="adminCurrentPassword"
+                       type="password"
+                       required>
+
+
+                <label for="adminNewPassword">
+                    New password
+                </label>
+
+                <input id="adminNewPassword"
+                       type="password"
+                       minlength="6"
+                       required>
+
+
+                <label for="adminConfirmPassword">
+                    Confirm new password
+                </label>
+
+                <input id="adminConfirmPassword"
+                       type="password"
+                       minlength="6"
+                       required>
+
+
+                <button class="primary-btn"
+                        type="submit">
+                    Update password
+                </button>
+
+
+                <p class="form-message"
+                   id="adminPasswordMessage"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+    <div class="toast"
+         id="toast"></div>
+
+
+    <!-- SCRIPTS -->
+    <script src="config.js"></script>
+    <script src="admin-dashboard.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("mobileMenuToggle");
+            const sidebar = document.getElementById("mobileSidebar");
+            const closeButton = document.getElementById("mobileMenuClose");
+
+            if (!toggle || !sidebar) return;
+
+            function closeMenu() {
+                document.body.classList.remove("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.setAttribute("aria-label", "Open navigation menu");
+            }
+
+            function openMenu() {
+                document.body.classList.add("mobile-menu-open");
+                toggle.setAttribute("aria-expanded", "true");
+                toggle.setAttribute("aria-label", "Close navigation menu");
+            }
+
+            toggle.addEventListener("click", () => {
+                const isOpen = document.body.classList.contains("mobile-menu-open");
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            // Make the X button close the sidebar
+            if (closeButton) {
+                closeButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            // Close when a navigation link is selected
+            sidebar.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", closeMenu);
+            });
+
+            // Close when Escape is pressed
+            document.addEventListener("keydown", event => {
+                if (event.key === "Escape") closeMenu();
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
