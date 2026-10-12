@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const API_URL =
         window.API_URL ||
-        "https://brgy-complaint.onrender.com";
+        "https://barangay-com.onrender.com";
 
     const token =
         localStorage.getItem("barangay_token");
