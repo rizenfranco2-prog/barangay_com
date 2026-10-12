@@ -1513,3 +1513,81 @@ body {
         z-index: 1;
     }
 }
+
+
+/* =========================================================
+   STICKY ADMIN HEADER + LEFT SIDEBAR
+   Desktop: keep both circled areas visible while scrolling.
+   Mobile: sticky header; sidebar remains usable in its own
+   scroll area. Uses existing common admin selectors.
+========================================================= */
+
+/* Sticky header/background at the top */
+@media (min-width: 769px) {
+    body:has(.admin-sidebar) .topbar,
+    body:has(.admin-sidebar) .navbar,
+    body:has(.admin-sidebar) .admin-topbar,
+    body:has(.admin-sidebar) header.topbar,
+    body:has(.admin-sidebar) header {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        isolation: isolate;
+    }
+
+    /* Keep the circled left navigation panel alongside scrolling */
+    body:has(.admin-sidebar) .admin-sidebar,
+    body:has(.admin-sidebar) aside.admin-sidebar,
+    body:has(.admin-sidebar) .sidebar,
+    body:has(.admin-sidebar) .admin-sidebar-panel {
+        position: sticky !important;
+        top: 190px !important;
+        align-self: start !important;
+        height: calc(100vh - 205px) !important;
+        max-height: calc(100vh - 205px) !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+        z-index: 900 !important;
+    }
+}
+
+/* Mobile-only: sticky header and a fixed-height, scrollable menu */
+@media (max-width: 768px) {
+    body:has(.admin-sidebar) .topbar,
+    body:has(.admin-sidebar) .navbar,
+    body:has(.admin-sidebar) .admin-topbar,
+    body:has(.admin-sidebar) header.topbar,
+    body:has(.admin-sidebar) header {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        isolation: isolate;
+    }
+
+    body:has(.admin-sidebar) .admin-sidebar,
+    body:has(.admin-sidebar) aside.admin-sidebar,
+    body:has(.admin-sidebar) .sidebar,
+    body:has(.admin-sidebar) .admin-sidebar-panel {
+        position: sticky !important;
+        top: 90px !important;
+        align-self: start !important;
+        max-height: calc(100dvh - 100px) !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+        z-index: 900 !important;
+    }
+}
+
+/* Fallback for admin layouts that use a generic side-nav class */
+@media (min-width: 769px) {
+    .admin-layout > aside,
+    .admin-layout > .sidebar,
+    .dashboard-layout > aside,
+    .dashboard-layout > .sidebar {
+        position: sticky !important;
+        top: 190px !important;
+        align-self: start !important;
+        max-height: calc(100vh - 205px) !important;
+        overflow-y: auto !important;
+    }
+}
