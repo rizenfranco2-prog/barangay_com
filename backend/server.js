@@ -2692,26 +2692,48 @@ async function start() {
 
     try {
 
-        await mongoose.connect(
-            process.env.MONGODB_URI
+        await mongoose.connect(process.env.MONGODB_URI);
+
+        console.log("MongoDB connected.");
+
+        // Create the initial admin account if it does not exist.
+        const adminUsername = String(
+            process.env.ADMIN_USERNAME || ""
+        ).trim();
+
+        const adminPassword = String(
+            process.env.ADMIN_PASSWORD || ""
         );
 
+        if (!adminUsername || !adminPassword) {
+            throw new Error(
+                "ADMIN_USERNAME and ADMIN_PASSWORD must be set."
+            );
+        }
 
-        console.log(
-            "MongoDB connected."
-        );
+        const existingAdmin = await Admin.findOne({
+            username: adminUsername
+        });
 
+        if (!existingAdmin) {
+            const hashedPassword = await bcrypt.hash(
+                adminPassword,
+                12
+            );
 
-        app.listen(
-            PORT,
-            () => {
+            await Admin.create({
+                username: adminUsername,
+                password: hashedPassword
+            });
 
-                console.log(
-                    `API running on port ${PORT}`
-                );
+            console.log("Initial admin account created.");
+        } else {
+            console.log("Initial admin account already exists.");
+        }
 
-            }
-        );
+        app.listen(PORT, () => {
+            console.log(`API running on port ${PORT}`);
+        });
 
     } catch (err) {
 
