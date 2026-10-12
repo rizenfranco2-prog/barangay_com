@@ -5220,7 +5220,7 @@ body {
 }
 
 /* =========================================================
-   TOP-ALIGNED MODALS — ANNOUNCEMENTS, POSTS, PASSWORD
+   TOP-ALIGNED MODALS   ANNOUNCEMENTS, POSTS, PASSWORD
    Keeps dialogs near the top so they remain easy to see
    even when the page behind them has many posts.
    ========================================================= */
@@ -5280,4 +5280,37 @@ body {
         max-height: calc(100dvh - 24px) !important;
         padding: 20px !important;
     }
+}
+
+
+/* =========================================================
+   OFFICIALS ADD / EDIT MODAL - TOP POSITIONING
+   ========================================================= */
+
+.app-body .official-modal:not(.hidden) {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    padding: 24px 16px !important;
+}
+
+    .app-body .official-modal:not(.hidden) .official-modal-card {
+        margin: 0 auto 24px !important;
+        max-height: calc(100vh - 48px) !important;
+        max-height: calc(100dvh - 48px) !important;
+        overflow-y: auto !important;
+        flex-shrink: 0 !important;
+    }
+
+@media (max-width: 600px) {
+    .app-body .official-modal:not(.hidden) {
+        padding: 12px !important;
+    }
+
+        .app-body .official-modal:not(.hidden) .official-modal-card {
+            width: 100% !important;
+            max-height: calc(100vh - 24px) !important;
+            max-height: calc(100dvh - 24px) !important;
+            padding: 20px 18px !important;
+        }
 }
