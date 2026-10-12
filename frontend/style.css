@@ -1,7 +1,7 @@
 /* =========================================================
    BARANGAY CONNECT
    PROFESSIONAL CIVIC DESIGN
-   Navy • Teal • Emerald
+   Navy ? Teal ? Emerald
    ========================================================= */
 
 :root {
@@ -2030,7 +2030,7 @@ textarea {
 
 
 /* =========================================================
-   RESPONSIVE — 1100
+   RESPONSIVE ? 1100
    ========================================================= */
 
 @media (max-width: 1100px) {
@@ -2058,7 +2058,7 @@ textarea {
 
 
 /* =========================================================
-   RESPONSIVE — 850
+   RESPONSIVE ? 850
    ========================================================= */
 
 @media (max-width: 850px) {
@@ -2176,7 +2176,7 @@ textarea {
 
 
 /* =========================================================
-   RESPONSIVE — 700
+   RESPONSIVE ? 700
    ========================================================= */
 
 @media (max-width: 700px) {
@@ -2238,7 +2238,7 @@ textarea {
 
 
 /* =========================================================
-   RESPONSIVE — 600
+   RESPONSIVE ? 600
    ========================================================= */
 
 @media (max-width: 600px) {
@@ -2350,7 +2350,7 @@ textarea {
 
 
 /* =========================================================
-   RESPONSIVE — 480
+   RESPONSIVE ? 480
    ========================================================= */
 
 @media (max-width: 480px) {
@@ -2425,7 +2425,7 @@ textarea {
 
 
 /* =========================================================
-   BARANGAY CONNECT — PROFESSIONAL DASHBOARD COLORS
+   BARANGAY CONNECT ? PROFESSIONAL DASHBOARD COLORS
    Dashboard + Admin Dashboard Enhancement
    ========================================================= */
 
@@ -2439,7 +2439,7 @@ textarea {
 
 
 /* ---------------------------------------------------------
-   TOPBAR — PROFESSIONAL
+   TOPBAR ? PROFESSIONAL
    --------------------------------------------------------- */
 
 .topbar {
@@ -3235,7 +3235,7 @@ textarea {
 }
 
 /* =========================================================
-   BARANGAY CONNECT — TEAL BACKGROUND
+   BARANGAY CONNECT ? TEAL BACKGROUND
    RESIDENT + ADMIN DASHBOARD
    ========================================================= */
 
@@ -5196,6 +5196,7 @@ body {
         box-shadow: inset 3px 0 0 currentColor;
     }
 }
+
 .mobile-menu-close {
     display: none;
 }
@@ -5215,5 +5216,68 @@ body {
         color: #1e293b;
         font-size: 28px;
         cursor: pointer;
+    }
+}
+
+/* =========================================================
+   TOP-ALIGNED MODALS — ANNOUNCEMENTS, POSTS, PASSWORD
+   Keeps dialogs near the top so they remain easy to see
+   even when the page behind them has many posts.
+   ========================================================= */
+
+.app-body .modal {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    padding: 24px 16px !important;
+    box-sizing: border-box !important;
+}
+
+    .app-body .modal .modal-card {
+        margin: 0 auto 24px !important;
+        max-height: calc(100vh - 48px) !important;
+        max-height: calc(100dvh - 48px) !important;
+        overflow-y: auto !important;
+        flex-shrink: 0 !important;
+    }
+
+/* Also move profile popups toward the top */
+.app-body .profile-modal {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    padding: 24px 16px !important;
+}
+
+.app-body .profile-modal-content {
+    margin: 0 auto 24px !important;
+    max-height: calc(100vh - 48px) !important;
+    max-height: calc(100dvh - 48px) !important;
+    overflow-y: auto !important;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+    .app-body .modal {
+        padding: 12px !important;
+    }
+
+        .app-body .modal .modal-card {
+            width: 100% !important;
+            max-width: 520px !important;
+            max-height: calc(100vh - 24px) !important;
+            max-height: calc(100dvh - 24px) !important;
+            padding: 24px 18px !important;
+        }
+
+    .app-body .profile-modal {
+        padding: 12px !important;
+    }
+
+    .app-body .profile-modal-content {
+        width: 100% !important;
+        max-height: calc(100vh - 24px) !important;
+        max-height: calc(100dvh - 24px) !important;
+        padding: 20px !important;
     }
 }
