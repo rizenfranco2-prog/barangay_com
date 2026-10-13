@@ -2,61 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Barangay Connect</title>
-  <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="bc-redesign.css?v=sticky-final4">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071d49">
+  <meta name="description" content="Barangay Connect helps residents share community concerns and stay updated with local announcements.">
+  <title>Barangay Connect | Report. Connect. Be heard.</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing.css">
 </head>
-<body class="auth-page">
-  <main class="auth-shell">
-    <section class="brand-panel">
-      <div class="brand-mark">BC</div>
-      <p class="eyebrow">BARANGAY CONNECT</p>
-      <h1>Report. Connect.<br>Be heard.</h1>
-      <p class="brand-copy">A modern community space for sharing barangay concerns, announcements and helpful updates.</p>
-      <div class="brand-points">
-        <span>✓ Community complaints</span>
-        <span>✓ Public announcements</span>
-        <span>✓ Community comments</span>
+<body class="landing-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Barangay Connect home">
+      <span class="brand-icon">BC</span>
+      <span>Barangay<span class="brand-blue">Connect</span><small>YOUR COMMUNITY, CONNECTED</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="site-nav" id="siteNav">
+      <a href="#about">About</a>
+      <a href="#features">How it works</a>
+      <a href="announcements.html">Announcements</a>
+      <div class="nav-actions">
+        <a class="nav-login" href="resident-login.html">Resident login</a>
+        <a class="nav-admin" href="admin.html">Admin portal <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="hero-pill"><span class="pulse-dot"></span> A better way to stay connected</div>
+          <p class="eyebrow">WELCOME TO BARANGAY CONNECT</p>
+          <h1>Report. Connect.<br><span>Be heard.</span></h1>
+          <p class="hero-description">Your voice matters in building a better community. Share concerns, follow updates, and connect with your barangay in one simple, accessible place.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="resident-login.html">Get started <span>→</span></a>
+            <a class="button button-outline" href="#about"><span class="play-icon">↘</span> Discover the platform</a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-avatars" aria-hidden="true"><span>J</span><span>M</span><span>A</span><span>+</span></div>
+            <p><strong>Stronger communities start here.</strong><br><span>Every concern deserves to be heard.</span></p>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="art-glow"></div>
+          <div class="art-top-tag"><span class="tag-check">✓</span><span><strong>Your voice counts</strong><small>Make a local difference</small></span></div>
+          <img src="barangay-hero-illustration.jpg" alt="Illustration representing a connected, supportive community" onerror="this.style.display='none';document.querySelector('.fallback-art').style.display='grid'">
+          <div class="fallback-art" aria-hidden="true"><div class="fallback-sun"></div><div class="fallback-building building-one"></div><div class="fallback-building building-two"></div><div class="fallback-people"><i></i><i></i><i></i></div></div>
+          <div class="art-bottom-card"><span class="status-icon">✓</span><span><strong>Community-first</strong><small>Updates in one place</small></span><span class="card-arrow">↗</span></div>
+          <span class="floating-star star-one">✦</span><span class="floating-star star-two">✧</span>
+        </div>
+      </div>
+      <div class="hero-bottom-line"><span>BUILT FOR EVERY RESIDENT</span><span class="line"></span><span>TRANSPARENT · ACCESSIBLE · COMMUNITY-DRIVEN</span></div>
+    </section>
+
+    <section class="value-strip" aria-label="Platform benefits">
+      <article><span class="value-icon blue">◎</span><div><strong>Share your concerns</strong><p>Speak up about local issues.</p></div></article>
+      <article><span class="value-icon cyan">↗</span><div><strong>Follow progress</strong><p>See the status of your reports.</p></div></article>
+      <article><span class="value-icon violet">▤</span><div><strong>Stay informed</strong><p>Keep up with barangay news.</p></div></article>
+    </section>
+
+    <section class="about-section section-wrap" id="about">
+      <div class="section-kicker"><span></span> ABOUT BARANGAY CONNECT</div>
+      <div class="about-grid">
+        <div><h2>A community that listens<br><span>moves forward.</span></h2></div>
+        <div class="about-text"><p>Barangay Connect brings residents and local administrators closer together. It provides a central space to raise concerns, read announcements, and take part in conversations that matter to the neighborhood.</p><a class="text-link" href="resident-login.html">Be part of the conversation <span>→</span></a></div>
+      </div>
+      <div class="about-cards">
+        <article class="info-card"><div class="info-number">01</div><div class="info-symbol blue-bg">✎</div><h3>Raise a concern</h3><p>Share an issue with the details needed to help your barangay understand it.</p></article>
+        <article class="info-card featured"><div class="info-number">02</div><div class="info-symbol white-bg">↻</div><h3>Track updates</h3><p>Stay aware as your submitted concern moves through its status updates.</p></article>
+        <article class="info-card"><div class="info-number">03</div><div class="info-symbol cyan-bg">♧</div><h3>Connect locally</h3><p>Discover announcements and join respectful community discussions.</p></article>
       </div>
     </section>
 
-    <section class="auth-card">
-        <div class="tabs">
-            <button class="tab active" id="loginTab">Sign in</button>
-            <button class="tab" id="registerTab">Create account</button>
+    <section class="feature-section" id="features">
+      <div class="section-wrap feature-grid">
+        <div class="feature-copy"><div class="section-kicker light"><span></span> SIMPLE. USEFUL. CONNECTED.</div><h2>Your barangay.<br>Your voice.<br><span>One platform.</span></h2><p>Designed to make community communication clearer and more convenient for residents and administrators alike.</p><a class="button button-light" href="resident-login.html">Join Barangay Connect <span>→</span></a></div>
+        <div class="feature-list">
+          <article><span class="feature-list-icon">01</span><div><h3>Complaint reporting</h3><p>Post community concerns with relevant details so they can be reviewed.</p></div><span class="feature-check">✓</span></article>
+          <article><span class="feature-list-icon">02</span><div><h3>Announcements and updates</h3><p>Find helpful public information and barangay announcements.</p></div><span class="feature-check">✓</span></article>
+          <article><span class="feature-list-icon">03</span><div><h3>Community conversation</h3><p>Comment on posts and take part in constructive local discussions.</p></div><span class="feature-check">✓</span></article>
+          <article><span class="feature-list-icon">04</span><div><h3>Status visibility</h3><p>Check whether a report is pending, in progress, or resolved.</p></div><span class="feature-check">✓</span></article>
         </div>
+      </div>
+    </section>
 
-        <form id="loginForm">
-            <h2>Welcome back</h2>
-            <p class="muted">Sign in to your community account.</p>
-            <label>Email</label>
-            <input id="loginEmail" type="email" required placeholder="you@example.com">
-            <label>Password</label>
-            <input id="loginPassword" type="password" required placeholder="Your password">
-            <button class="primary-btn" type="submit">Sign in</button>
-            <p class="form-message" id="loginMessage"></p>
-        </form>
-
-        <form id="registerForm" class="hidden">
-            <h2>Join your community</h2>
-            <p class="muted">Create an account to post complaints and comments.</p>
-            <label>Full name</label>
-            <input id="registerName" required maxlength="80" placeholder="Juan Dela Cruz">
-            <label>Email</label>
-            <input id="registerEmail" type="email" required placeholder="you@example.com">
-            <label>Password</label>
-            <input id="registerPassword" type="password" required minlength="6" placeholder="At least 6 characters">
-            <button class="primary-btn" type="submit">Create account</button>
-            <p class="form-message" id="registerMessage"></p>
-        </form>
-        <a class="admin-link" href="admin.html">Administrator login →</a>
+    <section class="cta-section section-wrap">
+      <div class="cta-panel"><div class="cta-decoration"></div><div><p class="eyebrow">LET'S BUILD A BETTER COMMUNITY</p><h2>It starts with one voice.<br><span>It grows with all of us.</span></h2><p>Sign in to share a concern or explore the latest community updates.</p></div><div class="cta-actions"><a class="button button-primary" href="resident-login.html">Resident sign in <span>→</span></a><a class="button button-outline" href="admin.html">Administrator portal</a></div></div>
     </section>
   </main>
-  <script src="config.js"></script>
-  <script src="auth.js"></script>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-icon">BC</span><span>Barangay<span class="brand-blue">Connect</span><small>YOUR COMMUNITY, CONNECTED</small></span></a><p>Report. Connect. Be heard.</p><div><a href="about.html">About</a><a href="announcements.html">Announcements</a><a href="contact.html">Contact</a></div><small class="copyright">© <span id="year"></span> Barangay Connect. Community starts with you.</small></footer>
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const siteNav = document.getElementById('siteNav');
+    menuToggle.addEventListener('click', () => {
+      const open = siteNav.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.textContent = open ? '✕' : '☰';
+    });
+    siteNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      siteNav.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
