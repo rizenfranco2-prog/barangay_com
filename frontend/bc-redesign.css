@@ -796,47 +796,76 @@ body.app-body > .layout {
 }
 .see-more-toggle:hover { text-decoration: underline; }
 
+/* Keep all opened forms/dialogs near the top of the screen, regardless of page scroll. */
+.modal:not(.hidden),
+.official-modal:not(.hidden),
+.profile-modal:not(.hidden),
+.popup:not(.hidden),
+[role="dialog"]:not(.hidden) {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 20000 !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  place-items: start center !important;
+  padding: clamp(18px, 5vh, 52px) 16px 20px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+.modal:not(.hidden) .modal-card,
+.modal:not(.hidden) .modal-content,
+.modal:not(.hidden) .modal-box,
+.official-modal:not(.hidden) .official-modal-card,
+.profile-modal:not(.hidden) .profile-modal-content,
+[role="dialog"]:not(.hidden) .modal-card,
+[role="dialog"]:not(.hidden) .modal-content {
+  margin: 0 auto !important;
+  max-height: calc(100dvh - clamp(38px, 7vh, 72px)) !important;
+  overflow-y: auto !important;
+  flex: 0 0 auto !important;
+}
 
-/* Reports & Charts: give each period control its own breathing room */
-.report-period-filters {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    gap: 16px;
-    flex-wrap: wrap;
-    min-width: 0;
+/* Make all navigation labels white with a dark background for readable contrast. */
+.sidebar {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+  border-color: #374151 !important;
 }
-.report-period-filters .report-filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 132px;
+.sidebar nav a,
+.sidebar nav button,
+.sidebar .nav-item,
+.sidebar .nav-link,
+.sidebar .sidebar-item,
+.sidebar nav a span,
+.sidebar nav button span,
+.sidebar .nav-item span,
+.sidebar .nav-link span,
+.sidebar .sidebar-item span {
+  color: #ffffff !important;
 }
-.report-period-filters .report-filter-group label {
-    display: block;
-    margin: 0;
+.sidebar nav a:hover,
+.sidebar nav button:hover,
+.sidebar .nav-item:hover,
+.sidebar .nav-link:hover,
+.sidebar .sidebar-item:hover {
+  color: #ffffff !important;
+  background: #374151 !important;
 }
-.report-period-filters .report-filter-group select,
-.report-period-filters .report-filter-group input[type="date"] {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
-    height: 40px;
-    padding: 0 10px;
-}
-.report-period-filters #yearFilterGroup {
-    margin-left: 4px;
-}
-@media (max-width: 760px) {
-    .report-period-filters {
-        justify-content: flex-start;
-        gap: 12px;
-    }
-    .report-period-filters .report-filter-group {
-        flex: 1 1 145px;
-        min-width: 0;
-    }
-    .report-period-filters #yearFilterGroup {
-        margin-left: 0;
-    }
+.sidebar nav a.active,
+.sidebar nav button.active,
+.sidebar .nav-item.active,
+.sidebar .nav-link.active,
+.sidebar .sidebar-item.active,
+.sidebar nav a.active span,
+.sidebar nav button.active span,
+.sidebar .nav-item.active span,
+.sidebar .nav-link.active span,
+.sidebar .sidebar-item.active span,
+.sidebar nav a.active:hover,
+.sidebar nav button.active:hover,
+.sidebar .nav-item.active:hover,
+.sidebar .nav-link.active:hover,
+.sidebar .sidebar-item.active:hover {
+  color: #ffffff !important;
+  background: #0879ed !important;
 }
