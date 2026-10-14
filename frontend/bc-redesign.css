@@ -824,3 +824,48 @@ body.app-body > .layout {
   overflow-y: auto !important;
   flex: 0 0 auto !important;
 }
+
+/* Make all navigation labels white with a dark background for readable contrast. */
+.sidebar {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+  border-color: #374151 !important;
+}
+.sidebar nav a,
+.sidebar nav button,
+.sidebar .nav-item,
+.sidebar .nav-link,
+.sidebar .sidebar-item,
+.sidebar nav a span,
+.sidebar nav button span,
+.sidebar .nav-item span,
+.sidebar .nav-link span,
+.sidebar .sidebar-item span {
+  color: #ffffff !important;
+}
+.sidebar nav a:hover,
+.sidebar nav button:hover,
+.sidebar .nav-item:hover,
+.sidebar .nav-link:hover,
+.sidebar .sidebar-item:hover {
+  color: #ffffff !important;
+  background: #374151 !important;
+}
+.sidebar nav a.active,
+.sidebar nav button.active,
+.sidebar .nav-item.active,
+.sidebar .nav-link.active,
+.sidebar .sidebar-item.active,
+.sidebar nav a.active span,
+.sidebar nav button.active span,
+.sidebar .nav-item.active span,
+.sidebar .nav-link.active span,
+.sidebar .sidebar-item.active span,
+.sidebar nav a.active:hover,
+.sidebar nav button.active:hover,
+.sidebar .nav-item.active:hover,
+.sidebar .nav-link.active:hover,
+.sidebar .sidebar-item.active:hover {
+  color: #ffffff !important;
+  background: #0879ed !important;
+}
