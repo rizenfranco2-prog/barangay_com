@@ -654,3 +654,36 @@ body.app-body > .layout {
     z-index: 6000 !important;
   }
 }
+
+
+/* Navigation refinement: clean white sidebar, readable text, no emoji icons. */
+.sidebar {
+    background: #ffffff !important;
+    color: #1f2937 !important;
+    border-color: #e5e7eb !important;
+}
+.sidebar nav a,
+.sidebar nav button,
+.sidebar .nav-item,
+.sidebar .nav-link,
+.sidebar .sidebar-item {
+    color: #1f2937 !important;
+    background-color: transparent;
+    text-decoration: none;
+}
+.sidebar nav a:hover,
+.sidebar nav button:hover,
+.sidebar .nav-item:hover,
+.sidebar .nav-link:hover,
+.sidebar .sidebar-item:hover {
+    color: #0f766e !important;
+    background: #f3f4f6 !important;
+}
+.sidebar nav a.active,
+.sidebar nav button.active,
+.sidebar .nav-item.active,
+.sidebar .nav-link.active,
+.sidebar .sidebar-item.active {
+    color: #0f766e !important;
+    background: #e6fffa !important;
+}
