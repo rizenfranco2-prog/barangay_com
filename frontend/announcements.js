@@ -1,4 +1,4 @@
-﻿function token() {
+function token() {
     return localStorage.getItem("barangay_token");
 }
 
@@ -225,9 +225,10 @@ function renderAnnouncements(announcements) {
                 </div>
 
 
-                <div class="announcement-content">
+                <div class="announcement-content expandable-text is-collapsed" data-full-text="true">
                     ${escapeHTML(post.content)}
                 </div>
+                ${String(post.content || "").length > 220 ? '<button type="button" class="see-more-toggle" aria-expanded="false">See more...</button>' : ""}
 
 
                 ${image}
@@ -329,6 +330,16 @@ function renderAnnouncements(announcements) {
         `;
 
     }).join("");
+    list.querySelectorAll(".see-more-toggle").forEach(button => {
+        button.addEventListener("click", () => {
+            const content = button.previousElementSibling;
+            const expanded = button.getAttribute("aria-expanded") === "true";
+            content.classList.toggle("is-collapsed", expanded);
+            button.setAttribute("aria-expanded", String(!expanded));
+            button.textContent = expanded ? "See more..." : "See less";
+        });
+    });
+
 }
 
 

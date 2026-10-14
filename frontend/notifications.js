@@ -16,10 +16,18 @@ async function loadNotifications(){
     if(!items.length){container.innerHTML='<p class="muted">You’re all caught up. No notifications yet.</p>';return;}
     container.innerHTML=items.map(item=>`
       <article class="notification-item ${item.read ? "read" : "unread"}">
-        <p>${escapeHTML(item.message)}</p>
+        <p class="notification-message expandable-text is-collapsed">${escapeHTML(item.message)}</p>
+        ${String(item.message || "").length > 180 ? '<button type="button" class="see-more-toggle" aria-expanded="false">See more...</button>' : ""}
         <small>${item.createdAt ? new Date(item.createdAt).toLocaleString() : ""}</small>
         ${!item.read ? `<button type="button" class="mark-read-btn" data-id="${escapeHTML(item._id)}">Mark as read</button>` : ""}
       </article>`).join("");
+    container.querySelectorAll(".see-more-toggle").forEach(button=>button.addEventListener("click",()=>{
+      const content=button.previousElementSibling;
+      const expanded=button.getAttribute("aria-expanded")==="true";
+      content.classList.toggle("is-collapsed",expanded);
+      button.setAttribute("aria-expanded",String(!expanded));
+      button.textContent=expanded?"See more...":"See less";
+    }));
     container.querySelectorAll(".mark-read-btn").forEach(button=>button.addEventListener("click",async()=>{
       button.disabled=true;
       try {

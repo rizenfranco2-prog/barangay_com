@@ -365,9 +365,10 @@ function render(list = adminPosts) {
 
                     <!-- POST CONTENT -->
 
-                    <p class="admin-post-content">
+                    <p class="admin-post-content expandable-text ${String(post.content || "").length > 220 ? "is-collapsed" : ""}" data-expandable-text>
                         ${esc(post.content || "")}
                     </p>
+                    ${String(post.content || "").length > 220 ? '<button type="button" class="see-more-toggle" data-see-more>See more...</button>' : ""}
 
 
                     <!-- IMAGE -->
@@ -1171,6 +1172,17 @@ function setupSearch() {
 /* =========================
    DOM READY
 ========================= */
+
+document.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-see-more]");
+    if (!button) return;
+
+    const text = button.previousElementSibling;
+    if (!text || !text.matches("[data-expandable-text]")) return;
+
+    const collapsed = text.classList.toggle("is-collapsed");
+    button.textContent = collapsed ? "See more..." : "See less";
+});
 
 document.addEventListener(
     "DOMContentLoaded",

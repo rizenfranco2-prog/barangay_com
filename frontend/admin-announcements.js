@@ -224,9 +224,10 @@ function renderAnnouncements(announcements) {
                 </div>
 
 
-                <div class="announcement-content">
+                <div class="announcement-content expandable-text ${String(post.content || "").length > 220 ? "is-collapsed" : ""}" data-expandable-text>
                     ${escapeHTML(post.content)}
                 </div>
+                ${String(post.content || "").length > 220 ? '<button type="button" class="see-more-toggle" data-see-more>See more...</button>' : ""}
 
                 ${image}
 
@@ -624,6 +625,17 @@ async function checkAdmin() {
 /* =====================================================
    START
    ===================================================== */
+
+document.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-see-more]");
+    if (!button) return;
+
+    const text = button.previousElementSibling;
+    if (!text || !text.matches("[data-expandable-text]")) return;
+
+    const collapsed = text.classList.toggle("is-collapsed");
+    button.textContent = collapsed ? "See more..." : "See less";
+});
 
 document.addEventListener(
     "DOMContentLoaded",
