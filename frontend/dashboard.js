@@ -2,6 +2,19 @@ let posts = [];
 let currentUser = null;
 let selectedImage = "";
 
+// Expand or collapse long text in the resident dashboard.
+document.addEventListener("click", event => {
+    const button = event.target.closest("[data-see-more]");
+    if (!button) return;
+
+    const text = button.previousElementSibling;
+    if (!text || !text.matches("[data-expandable-text]")) return;
+
+    const collapsed = text.classList.toggle("is-collapsed");
+    button.textContent = collapsed ? "See more..." : "See less";
+    button.setAttribute("aria-expanded", String(!collapsed));
+});
+
 
 /* ================================================= */
 /* AUTH / API */
@@ -71,7 +84,8 @@ async function loadNotifications() {
         // Display only active notifications
         container.innerHTML = activeNotifications.map(item => `
             <article class="notification-item ${item.read ? "read" : "unread"}">
-                <p>${escapeHTML(item.message)}</p>
+                <p class="notification-message expandable-text ${String(item.message || "").length > 180 ? "is-collapsed" : ""}" data-expandable-text>${escapeHTML(item.message)}</p>
+                ${String(item.message || "").length > 180 ? '<button type="button" class="see-more-toggle" data-see-more>See more...</button>' : ""}
                 <small>${new Date(item.createdAt).toLocaleString()}</small>
 
                 ${!item.read ? `
@@ -325,12 +339,13 @@ function renderPosts(list = posts) {
                 <!-- CONTENT -->
                 <!-- ================================= -->
 
-                <div class="post-content">
+                <div class="post-content expandable-text ${String(post.content || "").length > 220 ? "is-collapsed" : ""}" data-expandable-text>
 
-                    ${escapeHTML(post.content)
+                    ${escapeHTML(post.content || "")
                 .replace(/\n/g, "<br>")}
 
                 </div>
+                ${String(post.content || "").length > 220 ? '<button type="button" class="see-more-toggle" data-see-more>See more...</button>' : ""}
 
 
                 <!-- ================================= -->
@@ -412,9 +427,10 @@ function renderPosts(list = posts) {
                                     ${escapeHTML(c.authorName)}
                                 </strong>
 
-                                <p>
-                                    ${escapeHTML(c.content)}
+                                <p class="expandable-text ${String(c.content || "").length > 180 ? "is-collapsed" : ""}" data-expandable-text>
+                                    ${escapeHTML(c.content || "")}
                                 </p>
+                                ${String(c.content || "").length > 180 ? '<button type="button" class="see-more-toggle" data-see-more>See more...</button>' : ""}
 
                                 <small>
                                     ${timeAgo(c.createdAt)}
