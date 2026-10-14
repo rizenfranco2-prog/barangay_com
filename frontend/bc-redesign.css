@@ -795,3 +795,32 @@ body.app-body > .layout {
   cursor: pointer;
 }
 .see-more-toggle:hover { text-decoration: underline; }
+
+/* Keep all opened forms/dialogs near the top of the screen, regardless of page scroll. */
+.modal:not(.hidden),
+.official-modal:not(.hidden),
+.profile-modal:not(.hidden),
+.popup:not(.hidden),
+[role="dialog"]:not(.hidden) {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 20000 !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  place-items: start center !important;
+  padding: clamp(18px, 5vh, 52px) 16px 20px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+.modal:not(.hidden) .modal-card,
+.modal:not(.hidden) .modal-content,
+.modal:not(.hidden) .modal-box,
+.official-modal:not(.hidden) .official-modal-card,
+.profile-modal:not(.hidden) .profile-modal-content,
+[role="dialog"]:not(.hidden) .modal-card,
+[role="dialog"]:not(.hidden) .modal-content {
+  margin: 0 auto !important;
+  max-height: calc(100dvh - clamp(38px, 7vh, 72px)) !important;
+  overflow-y: auto !important;
+  flex: 0 0 auto !important;
+}
