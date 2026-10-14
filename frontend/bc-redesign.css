@@ -687,3 +687,87 @@ body.app-body > .layout {
     color: #0f766e !important;
     background: #e6fffa !important;
 }
+
+
+/* ACTIVE TAB REFINEMENT — only highlights the current navigation page. */
+.sidebar nav a.active,
+.sidebar nav button.active,
+.sidebar .nav-item.active,
+.sidebar .nav-link.active,
+.sidebar .sidebar-item.active {
+    background: #eaf4ff !important;
+    color: #0879ed !important;
+    border-left: 3px solid #0879ed !important;
+    padding-left: 11px !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+}
+
+.sidebar nav a.active span,
+.sidebar nav button.active span,
+.sidebar .nav-item.active span,
+.sidebar .nav-link.active span,
+.sidebar .sidebar-item.active span {
+    color: #0879ed !important;
+}
+
+.sidebar nav a.active:hover,
+.sidebar nav button.active:hover,
+.sidebar .nav-item.active:hover,
+.sidebar .nav-link.active:hover,
+.sidebar .sidebar-item.active:hover {
+    background: #eaf4ff !important;
+    color: #0879ed !important;
+}
+
+/* RESPONSIVE NAVIGATION SIZE — compact on smaller windows without changing page content. */
+@media screen and (min-width: 769px) {
+  body.app-body > .layout > #mobileSidebar.sidebar {
+    width: clamp(190px, 18vw, 245px) !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  body.app-body > .layout > #mobileSidebar.sidebar nav a,
+  body.app-body > .layout > #mobileSidebar.sidebar nav button,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-item,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-link,
+  body.app-body > .layout > #mobileSidebar.sidebar .sidebar-item {
+    box-sizing: border-box !important;
+    min-height: 40px !important;
+    padding: 9px 12px !important;
+    font-size: clamp(12px, 0.9vw, 14px) !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  body.app-body > .layout > #mobileSidebar.sidebar nav a.active,
+  body.app-body > .layout > #mobileSidebar.sidebar nav button.active,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-item.active,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-link.active,
+  body.app-body > .layout > #mobileSidebar.sidebar .sidebar-item.active {
+    padding-left: 9px !important;
+  }
+}
+
+/* Keep the existing mobile drawer behavior, but make its contents fit narrow screens. */
+@media screen and (max-width: 768px) {
+  body.app-body > .layout > #mobileSidebar.sidebar {
+    width: min(82vw, 280px) !important;
+    max-width: 88vw !important;
+    box-sizing: border-box !important;
+  }
+
+  body.app-body > .layout > #mobileSidebar.sidebar nav a,
+  body.app-body > .layout > #mobileSidebar.sidebar nav button,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-item,
+  body.app-body > .layout > #mobileSidebar.sidebar .nav-link,
+  body.app-body > .layout > #mobileSidebar.sidebar .sidebar-item {
+    box-sizing: border-box !important;
+    min-height: 40px !important;
+    padding: 9px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+  }
+}
