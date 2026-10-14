@@ -210,6 +210,24 @@ function getFilteredComplaints() {
    RENDER
 ========================= */
 
+function renderAdminStatusHistory(history = [], createdAt = null, status = "Pending") {
+    const entries = Array.isArray(history) && history.length
+        ? [...history]
+        : [{ status: "Pending", changedAt: createdAt, note: "Complaint submitted." }];
+
+    if (createdAt && !entries.some(item => item.note === "Complaint submitted.")) {
+        entries.unshift({ status: "Pending", changedAt: createdAt, note: "Complaint submitted." });
+    }
+
+    return `<div class="complaint-timeline" aria-label="Complaint status history">
+        ${entries.map(item => `<div class="timeline-item">
+            <strong>${escapeHTML(item.status || status)}</strong>
+            <small>${item.changedAt ? formatDate(item.changedAt) : "Date unavailable"}${item.changedByName ? ` · ${escapeHTML(item.changedByName)}` : ""}</small>
+            ${item.note ? `<p>${escapeHTML(item.note)}</p>` : ""}
+        </div>`).join("")}
+    </div>`;
+}
+
 function renderComplaints() {
 
     const container =
@@ -284,6 +302,10 @@ function renderComplaints() {
 
                     </div>
 
+
+                    <div class="admin-tracking-number">
+                        Tracking number: <strong>${escapeHTML(post.trackingNumber || `BC-${new Date(post.createdAt || Date.now()).getFullYear()}-${String(post._id).slice(-8).toUpperCase()}`)}</strong>
+                    </div>
 
                     <div class="complaint-information">
 
@@ -360,6 +382,11 @@ function renderComplaints() {
                     </div>
 
 
+<details class="admin-history-details">
+    <summary>View status history</summary>
+    ${renderAdminStatusHistory(post.statusHistory, post.createdAt, status)}
+</details>
+
 <div class="complaint-actions">
 
     <div>
@@ -394,6 +421,8 @@ function renderComplaints() {
             </option>
 
         </select>
+        <label for="status-note-${post._id}">Progress note (optional)</label>
+        <textarea class="complaint-status-note" data-note-for="${post._id}" id="status-note-${post._id}" maxlength="500" rows="2" placeholder="Describe the action taken or next step..."></textarea>
     </div>
 
     ${status === "Resolved"
@@ -465,7 +494,8 @@ function attachStatusEvents() {
 
                     const newStatus =
                         select.value;
-
+                    const noteField = document.querySelector(`textarea[data-note-for="${postId}"]`);
+                    const note = noteField ? noteField.value.trim() : "";
 
                     try {
 
@@ -475,7 +505,8 @@ function attachStatusEvents() {
                                 method: "PUT",
 
                                 body: JSON.stringify({
-                                    status: newStatus
+                                    status: newStatus,
+                                    note
                                 })
                             }
                         );

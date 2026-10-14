@@ -86,6 +86,12 @@ const adminSchema = new mongoose.Schema({
 
 const postSchema = new mongoose.Schema({
 
+    trackingNumber: {
+        type: String,
+        trim: true,
+        index: true
+    },
+
     statusHistory: {
         type: [{
             status: {
@@ -93,6 +99,7 @@ const postSchema = new mongoose.Schema({
                 enum: ["Pending", "In Progress", "Resolved"]
             },
             changedBy: String,
+            changedByName: String,
             changedAt: {
                 type: Date,
                 default: Date.now
@@ -1299,6 +1306,11 @@ app.get(
             }
 
 
+            if (req.auth.role === "user") {
+                // Keep resolved complaints visible to their owner for tracking history.
+                filter.$or.push({ authorId: req.auth.id });
+            }
+
             const posts =
                 await Post.find(filter)
                     .sort({
@@ -1403,6 +1415,11 @@ app.get(
                         ...safePost
                     } = post;
 
+                    // Tracking numbers and internal status notes belong only to the complaint owner.
+                    if (String(post.authorId) !== String(req.auth.id)) {
+                        delete safePost.trackingNumber;
+                        delete safePost.statusHistory;
+                    }
 
                     return safePost;
 
@@ -1657,46 +1674,33 @@ app.post(
             }
 
 
-            const post =
-                await Post.create({
+            const post = new Post({
+                authorId: user._id,
+                authorName: user.name,
+                type: "complaint",
+                content,
+                image,
+                category,
+                address,
+                age,
+                gender,
+                contactNumber,
+                status: "Pending",
+                archived: false,
+                resolvedAt: null,
+                isAnnouncement: false
+            });
 
-                    authorId:
-                        user._id,
-
-                    authorName:
-                        user.name,
-
-                    type:
-                        "complaint",
-
-                    content,
-
-                    image,
-
-                    category,
-
-                    address,
-
-                    age,
-
-                    gender,
-
-                    contactNumber,
-
-                    status:
-                        "Pending",
-
-                    archived:
-                        false,
-
-                    resolvedAt:
-                        null,
-
-                    isAnnouncement:
-                        false
-
-                });
-
+            // Stable reference residents can quote when contacting the barangay.
+            post.trackingNumber = `BC-${new Date().getFullYear()}-${String(post._id).slice(-8).toUpperCase()}`;
+            post.statusHistory = [{
+                status: "Pending",
+                changedBy: String(user._id),
+                changedByName: user.name,
+                changedAt: post.createdAt || new Date(),
+                note: "Complaint submitted."
+            }];
+            await post.save();
 
             res.status(201).json({
 
@@ -2072,33 +2076,54 @@ app.put(
             }
 
 
-            post.status =
-                status;
+            const previousStatus = post.status || "Pending";
+            const note = String(req.body.note || "").trim().slice(0, 500);
 
-            post.updatedAt =
-                new Date();
+            if (previousStatus === status && !note) {
+                return res.json({
+                    message: "Complaint status is unchanged.",
+                    post
+                });
+            }
 
+            const admin = await Admin.findById(req.auth.id).select("username").lean();
+            post.status = status;
+            post.updatedAt = new Date();
+            post.statusHistory = post.statusHistory || [];
+            // Record status changes and separately noted progress updates.
+            if (previousStatus !== status || note) {
+                post.statusHistory.push({
+                    status,
+                    changedBy: String(req.auth.id),
+                    changedByName: admin?.username || "Barangay Admin",
+                    changedAt: new Date(),
+                    note: note || (previousStatus !== status ? `Status changed from ${previousStatus} to ${status}.` : "Progress update.")
+                });
+            }
 
             if (status === "Resolved") {
                 post.archived = true;
-                post.resolvedAt = new Date();
+                post.resolvedAt = post.resolvedAt || new Date();
             } else {
                 post.archived = false;
                 post.resolvedAt = null;
             }
 
+            if (!post.trackingNumber) {
+                post.trackingNumber = `BC-${new Date(post.createdAt || Date.now()).getFullYear()}-${String(post._id).slice(-8).toUpperCase()}`;
+            }
 
             await post.save();
 
-            // Notify the resident who submitted the complaint.
+            // Notify the resident who submitted the complaint, including the admin note when present.
             await Notification.create({
                 recipientId: String(post.authorId),
                 postId: String(post._id),
-                message: `Your complaint status changed to ${status}.`
+                message: `Your complaint status is ${status}.${note ? ` Update: ${note}` : ""}`
             });
 
             res.json({
-                message: `Complaint status changed to ${status}.`,
+                message: `Complaint status updated to ${status}.`,
                 post
             });
 
