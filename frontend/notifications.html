@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Notifications • Barangay Connect</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bc-redesign.css?v=sticky-final4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-body">
+<header class="topbar">
+  <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileSidebar">☰</button>
+  <a class="top-brand" href="dashboard.html"><span>BC</span> Barangay Connect</a>
+  <div class="top-user">
+    <div class="top-profile">
+      <span class="avatar" id="topAvatar">U</span>
+      <div class="top-profile-info"><strong id="topName">User</strong><small>Resident</small></div>
+    </div>
+    <button class="icon-btn" id="logoutBtn">Logout</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="mobileSidebar">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close navigation menu">&times;</button>
+    <div class="profile-mini"><span class="avatar large" id="profileAvatar">U</span><div class="profile-mini-info"><strong id="profileName">User</strong><small id="profileEmail">email</small></div></div>
+    <nav>
+      <a class="nav-item" href="dashboard.html">⌂ <span>Community Feed</span></a>
+      <a class="nav-item" href="announcements.html">📢 <span>Announcements</span></a>
+      <a class="nav-item active" href="notifications.html">🔔 <span>Notifications</span></a>
+      <a href="officials.html" class="nav-link">🏛️ <span>Officials</span></a>
+      <a class="nav-item" href="about.html">ℹ️ <span>About Us</span></a>
+      <a class="nav-item" href="contact.html">📞 <span>Contact</span></a>
+    </nav>
+  </aside>
+  <main class="feed">
+    <section class="welcome">
+      <div><p class="eyebrow">YOUR UPDATES</p><h1>Notifications</h1><p class="muted">Stay updated on important messages and activity related to your account.</p></div>
+    </section>
+    <section class="notification-panel content-card">
+      <h2>All Notifications</h2>
+      <div id="notificationList">Loading notifications...</div>
+    </section>
+  </main>
+</div>
+<script src="config.js"></script>
+<script src="notifications.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+ const toggle=document.getElementById("mobileMenuToggle"), sidebar=document.getElementById("mobileSidebar"), close=document.getElementById("mobileMenuClose");
+ const closeMenu=()=>{document.body.classList.remove("mobile-menu-open");toggle?.setAttribute("aria-expanded","false");};
+ toggle?.addEventListener("click",()=>{const open=document.body.classList.toggle("mobile-menu-open");toggle.setAttribute("aria-expanded",String(open));});
+ close?.addEventListener("click",closeMenu);
+ sidebar?.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu();});
+});
+</script>
+</body>
+</html>
