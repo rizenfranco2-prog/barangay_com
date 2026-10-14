@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -168,28 +168,20 @@
                     </div>
 
 
-                    <div class="report-filter">
-
-                        <label for="yearFilter">
-                            Year
-                        </label>
-
-                        <select id="yearFilter">
-
-                            <option value="2026">
-                                2026
-                            </option>
-
-                            <option value="2025">
-                                2025
-                            </option>
-
-                            <option value="2024">
-                                2024
-                            </option>
-
+                    <div class="report-filter report-period-filters">
+                        <label for="periodFilter">View</label>
+                        <select id="periodFilter" aria-label="Report time period">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly" selected>Yearly</option>
                         </select>
 
+                        <label for="reportDate">Date</label>
+                        <input type="date" id="reportDate" aria-label="Choose report date">
+
+                        <label for="yearFilter" id="yearFilterLabel">Year</label>
+                        <select id="yearFilter" aria-label="Report year"></select>
                     </div>
 
                 </div>
@@ -312,9 +304,8 @@
                                     Complaints Overview
                                 </h2>
 
-                                <p>
-                                    Number of complaints submitted
-                                    each month.
+                                <p id="trendChartDescription">
+                                    Number of complaints submitted throughout the selected year.
                                 </p>
 
                             </div>

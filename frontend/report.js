@@ -249,72 +249,78 @@ document.addEventListener("DOMContentLoaded", async () => {
     ========================================================= */
 
     function initializeReports() {
+        const yearFilter = document.getElementById("yearFilter");
+        const periodFilter = document.getElementById("periodFilter");
+        const reportDateInput = document.getElementById("reportDate");
+        const period = periodFilter?.value || "yearly";
+        const selectedDate = reportDateInput?.value
+            ? new Date(`${reportDateInput.value}T12:00:00`)
+            : new Date();
+        const selectedYear = Number(yearFilter?.value) || selectedDate.getFullYear();
 
-        const yearFilter =
-            document.getElementById(
-                "yearFilter"
-            );
+        const reports = allReports.filter(post => {
+            if (!post.createdAt) return false;
+            const date = new Date(post.createdAt);
+            if (Number.isNaN(date.getTime())) return false;
+            if (period === "yearly") return date.getFullYear() === selectedYear;
+            if (period === "monthly") return date.getFullYear() === selectedDate.getFullYear() && date.getMonth() === selectedDate.getMonth();
+            if (period === "weekly") {
+                const start = new Date(selectedDate);
+                const day = (start.getDay() + 6) % 7;
+                start.setDate(start.getDate() - day);
+                start.setHours(0, 0, 0, 0);
+                const end = new Date(start);
+                end.setDate(end.getDate() + 7);
+                return date >= start && date < end;
+            }
+            return date.getFullYear() === selectedDate.getFullYear() &&
+                date.getMonth() === selectedDate.getMonth() &&
+                date.getDate() === selectedDate.getDate();
+        });
 
-
-        const currentYear =
-            new Date().getFullYear();
-
-
-        const selectedYear =
-            yearFilter
-                ? Number(yearFilter.value) ||
-                currentYear
-                : currentYear;
-
-
-        const reports =
-            filterByYear(
-                allReports,
-                selectedYear
-            );
-
-
-        console.log(
-            `Reports for ${selectedYear}:`,
-            reports
-        );
-
+        const yearLabel = document.getElementById("yearFilterLabel");
+        if (yearLabel) yearLabel.style.display = period === "yearly" ? "inline-block" : "none";
+        if (yearFilter) yearFilter.style.display = period === "yearly" ? "inline-block" : "none";
+        const description = document.getElementById("trendChartDescription");
+        if (description) {
+            const dateText = selectedDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+            description.textContent = period === "daily" ? `Complaints submitted by hour on ${dateText}.` :
+                period === "weekly" ? `Complaints submitted each day during the week of ${dateText}.` :
+                period === "monthly" ? `Complaints submitted each day in ${selectedDate.toLocaleDateString(undefined, { month: "long", year: "numeric" })}.` :
+                `Complaints submitted each month in ${selectedYear}.`;
+        }
 
         updateStatistics(reports);
-
-        createMonthlyChart(reports);
-
+        createMonthlyChart(reports, period, selectedDate, selectedYear);
         createCategoryChart(reports);
-
         createStatusChart(reports);
-
         createSummaryTable(reports);
     }
 
 
     /* =========================================================
-       YEAR FILTER
+       YEAR FILTER OPTIONS
     ========================================================= */
-
-    function filterByYear(
-        reports,
-        year
-    ) {
-
-        return reports.filter(post => {
-
-            if (!post.createdAt) {
-                return false;
-            }
-
-            const date =
-                new Date(post.createdAt);
-
-            return (
-                date.getFullYear() ===
-                Number(year)
-            );
-        });
+    function setupYearFilter() {
+        const yearFilter = document.getElementById("yearFilter");
+        const reportDateInput = document.getElementById("reportDate");
+        if (!yearFilter) return;
+        const currentYear = new Date().getFullYear();
+        yearFilter.innerHTML = "";
+        for (let year = currentYear; year >= currentYear - 10; year--) {
+            const option = document.createElement("option");
+            option.value = String(year);
+            option.textContent = String(year);
+            yearFilter.appendChild(option);
+        }
+        yearFilter.value = String(currentYear);
+        if (reportDateInput && !reportDateInput.value) {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, "0");
+            const dd = String(today.getDate()).padStart(2, "0");
+            reportDateInput.value = `${yyyy}-${mm}-${dd}`;
+        }
     }
 
 
@@ -404,137 +410,47 @@ document.addEventListener("DOMContentLoaded", async () => {
        MONTHLY CHART
     ========================================================= */
 
-    function createMonthlyChart(
-        reports
-    ) {
-
-        const canvas =
-            document.getElementById(
-                "monthlyChart"
-            );
-
-
+    function createMonthlyChart(reports, period = "yearly", selectedDate = new Date(), selectedYear = new Date().getFullYear()) {
+        const canvas = document.getElementById("monthlyChart");
         if (!canvas) return;
+        if (monthlyChart) monthlyChart.destroy();
 
-
-        /*
-            Destroy previous chart.
-
-            This prevents Chart.js from creating
-            multiple charts when changing the year.
-        */
-
-        if (monthlyChart) {
-            monthlyChart.destroy();
+        let labels = [];
+        let values = [];
+        if (period === "daily") {
+            labels = Array.from({ length: 24 }, (_, hour) => `${String(hour).padStart(2, "0")}:00`);
+            values = Array(24).fill(0);
+            reports.forEach(post => { const date = new Date(post.createdAt); values[date.getHours()]++; });
+        } else if (period === "weekly") {
+            const monday = new Date(selectedDate);
+            monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+            monday.setHours(0, 0, 0, 0);
+            labels = Array.from({ length: 7 }, (_, i) => {
+                const date = new Date(monday); date.setDate(monday.getDate() + i);
+                return date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+            });
+            values = Array(7).fill(0);
+            reports.forEach(post => { const date = new Date(post.createdAt); const index = Math.floor((date - monday) / 86400000); if (index >= 0 && index < 7) values[index]++; });
+        } else if (period === "monthly") {
+            const days = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0).getDate();
+            labels = Array.from({ length: days }, (_, i) => String(i + 1));
+            values = Array(days).fill(0);
+            reports.forEach(post => { values[new Date(post.createdAt).getDate() - 1]++; });
+        } else {
+            labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            values = Array(12).fill(0);
+            reports.forEach(post => { const date = new Date(post.createdAt); if (date.getFullYear() === Number(selectedYear)) values[date.getMonth()]++; });
         }
 
-
-        const monthlyValues =
-            Array(12).fill(0);
-
-
-        reports.forEach(post => {
-
-            if (!post.createdAt) {
-                return;
+        monthlyChart = new Chart(canvas, {
+            type: "line",
+            data: { labels, datasets: [{ label: "Complaints", data: values, borderWidth: 3, tension: 0.35, fill: true, pointRadius: period === "monthly" ? 2 : 4, pointHoverRadius: 6 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: context => ` Complaints: ${context.raw}` } } },
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
             }
-
-
-            const date =
-                new Date(post.createdAt);
-
-
-            const month =
-                date.getMonth();
-
-
-            monthlyValues[month]++;
         });
-
-
-        monthlyChart =
-            new Chart(canvas, {
-
-                type: "line",
-
-                data: {
-
-                    labels: [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec"
-                    ],
-
-                    datasets: [{
-
-                        label:
-                            "Complaints",
-
-                        data:
-                            monthlyValues,
-
-                        borderWidth: 3,
-
-                        tension: 0.35,
-
-                        fill: true,
-
-                        pointRadius: 4,
-
-                        pointHoverRadius: 6
-                    }]
-                },
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-                    plugins: {
-
-                        legend: {
-                            display: false
-                        },
-
-                        tooltip: {
-
-                            callbacks: {
-
-                                label:
-                                    function (context) {
-
-                                        return (
-                                            " Complaints: " +
-                                            context.raw
-                                        );
-                                    }
-                            }
-                        }
-                    },
-
-                    scales: {
-
-                        y: {
-
-                            beginAtZero: true,
-
-                            ticks: {
-                                precision: 0
-                            }
-                        }
-                    }
-                }
-            });
     }
 
 
@@ -893,22 +809,11 @@ document.addEventListener("DOMContentLoaded", async () => {
        YEAR CHANGE
     ========================================================= */
 
-    const yearFilter =
-        document.getElementById(
-            "yearFilter"
-        );
-
-
-    if (yearFilter) {
-
-        yearFilter.addEventListener(
-            "change",
-            () => {
-
-                initializeReports();
-            }
-        );
-    }
+    setupYearFilter();
+    ["yearFilter", "periodFilter", "reportDate"].forEach(id => {
+        const filter = document.getElementById(id);
+        if (filter) filter.addEventListener("change", initializeReports);
+    });
 
 
     /* =========================================================
